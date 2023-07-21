@@ -1,1 +1,33 @@
-<p>register works!</p>
+<div class="container">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
+        <fieldset>
+            <legend>Register your profile</legend>
+            <div class="alert alert-danger" *ngIf="invalidFormMessage" role="alert">
+                {{invalidFormMessage}}
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" formControlName="username">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" formControlName="password">
+            </div>
+            <div class="mb-3">
+                <label for="repass" class="form-label">Repeat password</label>
+                <input type="password" class="form-control" id="repass" formControlName="repass">
+            </div>
+            <div class="mb-3 form-actions">
+                <p class="action-holder">Already have an account ? Click <a class="action-link"
+                        routerLink="/login">here</a> to
+                    login</p>
+                <button type="submit" class="btn btn-primary float-end"
+                    [disabled]="registerForm.invalid">Submit</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

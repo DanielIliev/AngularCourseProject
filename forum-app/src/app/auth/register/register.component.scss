@@ -1,0 +1,19 @@
+.register-form {
+    border: 1px solid #eee;
+    padding: 16px;
+    overflow: hidden;
+
+    .form-actions {
+        display: flex;
+        align-items: baseline;
+        justify-content: flex-end;
+
+        .action-holder {
+            margin-right: auto;
+
+            .action-link {
+                cursor: pointer;
+            }
+        }
+    }
+}
