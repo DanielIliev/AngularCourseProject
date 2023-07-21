@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { validationResult } = require('express-validator');
 const { registerValidators } = require('../middlewares/inputValidators.js');
 const authService = require('../services/authService.js');
-const tokenStorage = require('../tokens/tokens.js');
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
@@ -10,8 +9,6 @@ router.post('/login', async (req, res) => {
     try {
         const token = await authService.login(username, password);
         await authService.login(username, password);
-
-        tokenStorage.push(token);
 
         res.json(token);
         res.end();
@@ -48,12 +45,7 @@ router.post('/register', registerValidators, async (req, res) => {
 router.get('/logout', (req, res) => {
     res.json({ message: 'Logged out' });
     res.end();
-    // if (req.user) {
-    //     return res.redirect('/');
-    // }
-
-    // res.clearCookie('auth');
-    // res.redirect('/')
+    // TODO: Remove JWT token ?
 });
 
 module.exports = router;

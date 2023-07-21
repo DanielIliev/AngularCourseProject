@@ -1,8 +1,6 @@
-// const Post = require('../models/Post');
 const { validationResult } = require('express-validator');
 const { addPostValidators } = require('../middlewares/inputValidators');
 const { fetchPosts, addPost, fetchPostById } = require('../services/postService');
-const tokenStorage = require('../tokens/tokens');
 const router = require('express').Router();
 
 router.get('/posts', async (req, res) => {
@@ -18,26 +16,21 @@ router.get('/posts', async (req, res) => {
 });
 
 router.post('/posts/add', addPostValidators, async (req, res) => {
-    console.log(tokenStorage);
+    const errors = validationResult(req);
 
-    res.json('Ok');
-    res.end();
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
-    // const errors = validationResult(req);
+    try {
+        await addPost({ ...req.body });
 
-    // if (!errors.isEmpty()) {
-    //     return res.status(400).json({ errors: errors.array() });
-    // }
-
-    // try {
-    //     await addPost({ ...req.body });
-
-    //     res.json('All good');
-    //     res.end();
-    // } catch (error) {
-    //     res.status(400).json('Unable to add your form, please try again later');
-    //     res.end();
-    // }
+        res.json('All good');
+        res.end();
+    } catch (error) {
+        res.status(400).json('Unable to add your form, please try again later');
+        res.end();
+    }
 });
 
 router.get('/post/:id', async (req, res) => {
