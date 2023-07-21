@@ -1,0 +1,66 @@
+@import "variables";
+
+nav.navbar {
+    background-color: $primary-color;
+
+    li.nav-item {
+        transition: all 0.3s;
+    }
+
+    a {
+        transition: 0.3s;
+        color: $neutral-color;
+        font-weight: 500;
+        &:hover {
+            color: $accent-color;
+        }
+    }
+
+    .navbar-collapse {
+        transition: all 0.3s;
+    }
+
+    .custom-toggler {
+        border: none;
+        outline: none;
+
+        .custom-hamburger-icon {
+            .bar {
+                transition: 0.3s;
+                display: block;
+                width: 25px;
+                margin: 5px 0px 0px 0px;
+                height: 3px;
+                background-color: $neutral-color;
+            }
+        }
+
+        .custom-hamburger-icon.active {
+            .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+    
+            .bar:nth-child(2) {
+                opacity: 0;
+            }
+    
+            .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+        &:active, &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+}
+
+// Center nav links on tablet and mobile views
+@media screen and (max-width: 991px) {
+    div#mainNav {
+        .navbar-nav {
+            align-items: center;
+        }
+    }
+}
