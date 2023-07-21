@@ -15,7 +15,7 @@ export class GuestGuardService implements CanActivate {
     | UrlTree 
     | Observable<boolean | UrlTree> 
     | Promise<boolean | UrlTree> {
-        return this.checkIfUserIsLogged(state.url) || this.router.createUrlTree(['/protected']);
+        return this.checkIfUserIsLogged(state.url) || this.router.createUrlTree(['/']);
     }
 
     checkIfUserIsLogged(url: string): boolean {

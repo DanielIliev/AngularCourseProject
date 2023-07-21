@@ -8,8 +8,8 @@ import { GuestGuardService } from './guards/guest-guard.service';
 
 const routes: Routes = [
   { path: '', title: 'Home', component: HomeComponent },
-  { path: 'login', title: 'Login', component: LoginComponent },
-  { path: 'register', title: 'Register', component: RegisterComponent },
+  { path: 'login', title: 'Login', component: LoginComponent, canActivate: [GuestGuardService] },
+  { path: 'register', title: 'Register', component: RegisterComponent, canActivate: [GuestGuardService] },
   { path: '**', component: NotfoundComponent }
 ];
 
