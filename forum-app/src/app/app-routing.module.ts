@@ -6,12 +6,14 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { GuestGuardService } from './guards/guest-guard.service';
 import { BoardComponent } from './forum/board/board.component';
+import { PostComponent } from './forum/post/post.component';
 
 const routes: Routes = [
   { path: '', title: 'Home', component: HomeComponent },
   { path: 'login', title: 'Login', component: LoginComponent, canActivate: [GuestGuardService] },
   { path: 'register', title: 'Register', component: RegisterComponent, canActivate: [GuestGuardService] },
   { path: 'board', title: 'Board', component: BoardComponent },
+  { path: 'post/:id', title: 'Post details', component: PostComponent },
   { path: '**', component: NotfoundComponent }
 ];
 

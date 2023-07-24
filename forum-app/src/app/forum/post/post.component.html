@@ -1,0 +1,14 @@
+<h1>{{post.title}}</h1>
+<p>{{post.content}}</p>
+
+<hr>
+<div class="comments-list">
+    <div *ngIf="post.comments.length === 0">
+        No comments yet
+    </div>
+    <div *ngIf="post.comments.length !== 0">
+        <div class="alert alert-success" *ngFor="let comment of post.comments">
+            {{comment.username}} said: {{comment.comment}}
+        </div>
+    </div>
+</div>

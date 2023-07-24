@@ -18,8 +18,6 @@ export class BoardComponent implements OnInit {
     this.boardService.fetchPosts().subscribe({
       next: (response) => {
         this.posts = response;
-        console.log(response);
-        
       },
       error: (err) => {
         this.errorMessage = err.error;
@@ -28,7 +26,6 @@ export class BoardComponent implements OnInit {
   }
 
   postDetails(id: String):void {
-    console.log(`Post id: ${id}`);
-    // this.router.navigate([`post/${id}`]);
+    this.router.navigate([`post/${id}`]);
   }
 }
