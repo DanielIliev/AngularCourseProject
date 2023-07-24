@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="add-form">
+        <form [formGroup]="addForm" (ngSubmit)="add($event)">
+            <fieldset>
+                <legend>Write down your post</legend>
+                <div *ngIf="invalidFormErrorMessage" class="alert alert-danger">
+                    {{invalidFormErrorMessage}}
+                </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" formControlName="title" maxlength="25">
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content</label>
+                    <textarea type="text" class="form-control" id="content" formControlName="content"
+                        maxlength="350"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary float-end" [disabled]="addForm.invalid">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+</div>

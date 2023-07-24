@@ -23,10 +23,14 @@
         <li class="nav-item" *ngIf="!loggedIn">
           <a class="nav-link" aria-current="page" routerLink="/register">Register</a>
         </li>
+        <!-- User navs -->
+        <li class="nav-item" *ngIf="loggedIn">
+          <a class="nav-link" aria-current="page" routerLink="/add">Add post</a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-<main id="content-wrapper">
-  <router-outlet></router-outlet>
+<main id="content-wrapper" [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>
