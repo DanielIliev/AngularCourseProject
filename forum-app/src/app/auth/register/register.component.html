@@ -7,24 +7,30 @@
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" formControlName="username" placeholder="Username...">
-                <small class="input-error-message" *ngIf="username?.invalid && username?.touched">Your username is invalid</small>
+                <input type="text" class="form-control" id="username" formControlName="username"
+                    placeholder="Username...">
+                <small class="input-error-message" *ngIf="username?.invalid && username?.touched">Your username is
+                    invalid</small>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="text" class="form-control" id="email" formControlName="email" placeholder="Email...">
-                <small class="input-error-message" *ngIf="email?.invalid && email?.touched">Your email is invalid</small>
+                <small class="input-error-message" *ngIf="email?.invalid && email?.touched">Your email is
+                    invalid</small>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password...">
-                <small class="input-error-message" *ngIf="password?.invalid && password?.touched">Your password is invalid</small>
+                <input type="password" class="form-control" id="password" formControlName="password"
+                    placeholder="Password...">
+                <small class="input-error-message" *ngIf="password?.invalid && password?.touched">Your password is
+                    invalid</small>
             </div>
             <div class="mb-3">
                 <label for="repass" class="form-label">Repeat password</label>
-                <input type="password" class="form-control" id="repass" formControlName="repass" placeholder="Repeat password...">
-                <small class="input-error-message" *ngIf="repass?.invalid && repass?.touched">Your repeat password is invalid</small>
-                <small class="input-error-message" *ngIf="password?.value != repass?.value">Passwords must match</small>
+                <input type="password" class="form-control" id="repass" formControlName="repass"
+                    placeholder="Repeat password...">
+                <small class="input-error-message" *ngIf="repass?.invalid && repass?.touched">Your repeat password
+                    is invalid</small>
             </div>
             <div class="mb-3 form-actions">
                 <p class="action-holder">Already have an account ? Click <a class="action-link"
