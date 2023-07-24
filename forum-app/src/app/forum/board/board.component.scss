@@ -1,0 +1,20 @@
+.card {
+    margin: 1vh 0vh;
+
+}
+.card-link {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    overflow: hidden;
+    word-break: break-all;
+
+    .comments-counter {
+        margin-right: auto;
+    }
+}

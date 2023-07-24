@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { LocalStorageService } from './services/local-storage.service';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ForumModule } from './forum/forum.module';
 
 @NgModule({
   declarations: [
@@ -16,10 +17,11 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     CoreModule,
     AuthModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ForumModule
   ],
   providers: [LocalStorageService],
   bootstrap: [AppComponent]

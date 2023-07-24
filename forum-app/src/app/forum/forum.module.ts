@@ -10,6 +10,9 @@ import { BoardComponent } from './board/board.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    BoardComponent
   ]
 })
 export class ForumModule { }
