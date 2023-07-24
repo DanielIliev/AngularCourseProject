@@ -21,12 +21,29 @@ export class RegisterComponent {
     ]],
     email: ['', [
       Validators.required,
-      Validators.pattern(/^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z0-9]+$/)
+      Validators.email
     ]],
     repass: ['', [
       Validators.required,
     ]]
   });
+
+  // Getters for form fields
+  get username() {
+    return this.registerForm.get('username');
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get repass() {
+    return this.registerForm.get('repass');
+  }
 
   constructor(private fb: FormBuilder, private registerService: RegisterService) { }
 
