@@ -3,9 +3,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('../lib/jsonwebtoken.js');
 const { SECRET } = require('../constants.js');
 
-exports.findByUsername = async (username) => User.findOne({ username });
+exports.findById = async (id) => await User.findOne({ '_id': id });
 
-exports.findByEmail = async (email) => User.findOne({ email });
+exports.findByUsername = async (username) => await User.findOne({ username });
+
+exports.findByEmail = async (email) => await User.findOne({ email });
 
 exports.login = async (username, password) => {
     // Check for empty fields

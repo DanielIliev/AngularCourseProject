@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { WINDOW } from 'src/app/utils/window.injectable';
 import { LoginCredentials } from 'src/app/types/authTypes';
+import jwt from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -26,9 +27,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private loginService: LoginService, private localStorageService: LocalStorageService, @Inject(WINDOW) private window: Window) { }
 
-  ngOnInit(): void {
-    // this.loginForm.valueChanges.subscribe(console.log);
-  }
+  ngOnInit(): void {}
 
   login() {
     if (this.loginForm.invalid) {
@@ -41,7 +40,9 @@ export class LoginComponent implements OnInit {
     this.loginService.login(credentials).subscribe({
       next: (response) => {
         const token = String(response);
+        const userData = jwt(token);
         this.localStorageService.set('authToken', token);
+        this.localStorageService.set('userData', JSON.stringify(userData));
         this.invalidFormMessage = '';
       },
       error: (err) => {

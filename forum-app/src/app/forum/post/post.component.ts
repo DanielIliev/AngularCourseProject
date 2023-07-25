@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PostService } from './post.service';
 import { Post } from 'src/app/types/Post';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-post',
@@ -10,10 +11,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
+  loggedIn: boolean = false;
+
   post: Post = {
     _id: '',
     title: '',
     content: '',
+    author: '',
+    authorName: '',
     comments: []
   };
 
@@ -29,7 +34,13 @@ export class PostComponent implements OnInit {
     return this.commentForm.get('comment');
   }
 
-  constructor(private route: ActivatedRoute, private postService: PostService, private fb: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private postService: PostService, private fb: FormBuilder, private localStorageService: LocalStorageService) {
+    const token = this.localStorageService.get('authToken');
+
+    if (token) {
+      this.loggedIn = true;
+    }
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {

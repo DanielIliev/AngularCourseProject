@@ -2,7 +2,9 @@ interface Post {
     _id: String,
     title: String,
     content: String,
-    comments: Comment[]
+    author: String,
+    authorName: String,
+    comments: Comment[],
 }
 
 interface postForm {

@@ -3,6 +3,7 @@
         <div class="card-body">
             <h1>{{post.title}}</h1>
             <p>{{post.content}}</p>
+            <small>Post made by: {{post.authorName}}</small>
         </div>
     </div>
 
@@ -16,7 +17,7 @@
                 {{comment.username}} said: {{comment.comment}}
             </div>
         </div>
-        <div class="comment-form">
+        <div class="comment-form" *ngIf="loggedIn">
             <form class="form-inline" [formGroup]="commentForm" (ngSubmit)="addComment()">
                 <fieldset>
                     <legend>Share your thoughts</legend>

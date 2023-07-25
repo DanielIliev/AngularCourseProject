@@ -13,6 +13,7 @@ nav.navbar {
         font-weight: 500;
         &:hover {
             color: $accent-color;
+            cursor: pointer;
         }
     }
 

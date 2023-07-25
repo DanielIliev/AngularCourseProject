@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddService } from './add.service';
 import { postForm } from 'src/app/types/Post';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-add',
@@ -23,7 +24,7 @@ export class AddComponent {
 
   invalidFormErrorMessage: string = '';
   
-  constructor(private fb: FormBuilder, private addService: AddService, private router: Router) {}
+  constructor(private fb: FormBuilder, private addService: AddService, private router: Router, private localStorageService: LocalStorageService) {}
 
   add(event: Event): void {
     event.preventDefault();
@@ -34,6 +35,12 @@ export class AddComponent {
     }
 
     const data: postForm = this.addForm.value;
+    const userData = this.localStorageService.get('userData');
+
+    // Confirm that userData is not null
+    if (userData) {
+      data.author = JSON.parse(userData)._id;
+    }
     
     this.addService.addPost(data).subscribe({
       error: (err) => {

@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
   logout(event: Event) {
     event.preventDefault();
     this.localStorageService.remove('authToken');
+    this.localStorageService.remove('userData');
     this.window.location.reload();
   }
 }
