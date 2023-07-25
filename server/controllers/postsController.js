@@ -3,49 +3,39 @@ const { addPostValidators } = require('../middlewares/inputValidators');
 const { fetchPosts, addPost, fetchPostById, deletePost } = require('../services/postService');
 const { SECRET } = require('../constants');
 const jwt = require('jsonwebtoken');
+const authorizedUser = require('../middlewares/authorizationMiddleware');
 const router = require('express').Router();
 
 router.get('/posts', async (req, res) => {
     try {
         const posts = await fetchPosts();
 
-        res.json(posts);
-        res.end();
+        return res.json(posts);
     } catch (error) {
-        res.status(404).json('Unable to fetch posts, please try again later');
-        res.end();
+        return res.status(404).json('Unable to fetch posts, please try again later');
     }
 });
 
-router.post('/posts/add', addPostValidators, async (req, res) => {
-    const token = req.headers['authorization'];
+router.post('/posts/add', authorizedUser, addPostValidators, async (req, res) => {
+    // if (token) {
+    //     const tokenJWT = token.replace(/^Bearer\s+/, "");
 
-    if (!token) {
-        res.status(401).json({
-            success: false,
-            message: 'Unauthorized operation'
-        });
-    }
+    //     jwt.verify(tokenJWT, SECRET, (err, decoded) => {
+    //         if (err) {
+    //             return res.status(401).json({
+    //                 success: false,
+    //                 message: 'Token is not valid'
+    //             });
+    //         }
+    //         req.decoded = decoded;
+    //     });
+    // } else {
+    //     return res.status(401).json({
+    //         success: false,
+    //         message: 'Token not provided'
+    //     });
+    // }
 
-    const tokenJWT = token.replace(/^Bearer\s+/, "");
-
-    if (tokenJWT) {
-        jwt.verify(tokenJWT, SECRET, (err, decoded) => {
-            if (err) {
-                return res.status(401).json({
-                    success: false,
-                    message: 'Token is not valid'
-                });
-            }
-            req.decoded = decoded;
-        });
-    } else {
-        return res.status(401).json({
-            success: false,
-            message: 'Token not provided'
-        });
-    }
-    
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -53,26 +43,31 @@ router.post('/posts/add', addPostValidators, async (req, res) => {
     }
 
     try {
-        req.body.author = req.decoded._id;
         await addPost({ ...req.body });
 
-        res.json('All good');
-        res.end();
+        return res.end();
     } catch (error) {
-        res.status(400).json('Unable to add your post, please try again later');
-        res.end();
+        console.log(error);
+        return res.end();
     }
+    // try {
+    //     // req.body.author = req.decoded._id;
+    //     req.body.author = 'Dragan';
+    //     await addPost({ ...req.body });
+
+    //     return res.json('All good');
+    // } catch (error) {
+    //     return res.status(400).json('Unable to add your post, please try again later');
+    // }
 });
 
 router.get('/post/:id', async (req, res) => {
     try {
         const post = await fetchPostById(req.params.id);
 
-        res.json(post);
-        res.end();
+        return res.json(post);
     } catch (error) {
-        res.status(404).json('Unable to fetch post');
-        res.end();
+        return res.status(404).json('Unable to fetch post');
     }
 });
 
@@ -83,13 +78,12 @@ router.get('/delete/:id', async (req, res) => {
 
         await deletePost(id);
 
-        res.json({
+        return res.json({
             success: true
         });
 
     } catch (error) {
-        res.status(400).json('Unable to delete the post');
-        res.end();
+        return res.status(400).json('Unable to delete the post');
     }
 });
 

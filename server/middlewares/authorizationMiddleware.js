@@ -1,20 +1,35 @@
 const jwt = require('../lib/jsonwebtoken.js');
 const { SECRET } = require('../constants.js');
-const tokenStorage = require('../tokens/tokens.js');
 
-exports.authorizedUser = async (req, res, next) => {
-    if (!req.headers['Authorization']) {
-        return res.send(401).json('Unauthorized');
+const authorizedUser = async (req, res, next) => {
+    const token = req.headers['authorization'];
+
+    if (!token) {
+        return res.status(401).json({
+            success: false,
+            message: 'Unauthorized operation'
+        });
     }
 
-    const bearer = req.headers['Authorization'];
-    const token = bearer.split(' ')[1];
+    const JWT = token.split(' ')[1];
 
-    if (!tokenStorage.includes(token)) {
-        console.log('User is authorized');
+    try {
+        await jwt.verify(JWT, SECRET, (error, decoded) => {
+            if (error) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'Unauthorized operation'
+                });
+            }
+        });
+    } catch (error) {
+        return res.status(401).json({
+            success: false,
+            message: 'Unauthorized operation'
+        });
     }
-
-
 
     next();
 }
+
+module.exports = authorizedUser;
