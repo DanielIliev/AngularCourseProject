@@ -17,24 +17,6 @@ router.get('/posts', async (req, res) => {
 });
 
 router.post('/posts/add', authorizedUser, addPostValidators, async (req, res) => {
-    // if (token) {
-    //     const tokenJWT = token.replace(/^Bearer\s+/, "");
-
-    //     jwt.verify(tokenJWT, SECRET, (err, decoded) => {
-    //         if (err) {
-    //             return res.status(401).json({
-    //                 success: false,
-    //                 message: 'Token is not valid'
-    //             });
-    //         }
-    //         req.decoded = decoded;
-    //     });
-    // } else {
-    //     return res.status(401).json({
-    //         success: false,
-    //         message: 'Token not provided'
-    //     });
-    // }
 
     const errors = validationResult(req);
 
@@ -47,18 +29,11 @@ router.post('/posts/add', authorizedUser, addPostValidators, async (req, res) =>
 
         return res.end();
     } catch (error) {
-        console.log(error);
-        return res.end();
+        return res.status(400).json({
+            success: false,
+            message: 'Unable to add your post, please try again later'
+        });
     }
-    // try {
-    //     // req.body.author = req.decoded._id;
-    //     req.body.author = 'Dragan';
-    //     await addPost({ ...req.body });
-
-    //     return res.json('All good');
-    // } catch (error) {
-    //     return res.status(400).json('Unable to add your post, please try again later');
-    // }
 });
 
 router.get('/post/:id', async (req, res) => {
