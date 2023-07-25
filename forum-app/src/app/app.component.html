@@ -2,9 +2,8 @@
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/">Forum</a>
     <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-      aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-      <!-- <span class="navbar-toggler-icon"></span> -->
-      <div class="custom-hamburger-icon" [ngClass]="active ? 'active' : ''" (click)="toggleIconAnimation()">
+      aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleIconAnimation()">
+      <div class="custom-hamburger-icon" [ngClass]="active ? 'active' : ''">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
@@ -26,6 +25,9 @@
         <!-- User navs -->
         <li class="nav-item" *ngIf="loggedIn">
           <a class="nav-link" aria-current="page" routerLink="/add">Add post</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn">
+          <a class="nav-link" aria-current="page" (click)="logout($event)">Logout</a>
         </li>
       </ul>
     </div>

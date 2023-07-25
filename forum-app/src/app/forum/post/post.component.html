@@ -1,14 +1,37 @@
-<h1>{{post.title}}</h1>
-<p>{{post.content}}</p>
-
-<hr>
-<div class="comments-list">
-    <div *ngIf="post.comments.length === 0">
-        No comments yet
+<div class="container post-container">
+    <div class="card">
+        <div class="card-body">
+            <h1>{{post.title}}</h1>
+            <p>{{post.content}}</p>
+        </div>
     </div>
-    <div *ngIf="post.comments.length !== 0">
-        <div class="alert alert-success" *ngFor="let comment of post.comments">
-            {{comment.username}} said: {{comment.comment}}
+
+    <hr>
+    <div class="comments-list">
+        <div *ngIf="post.comments.length === 0">
+            No comments yet
+        </div>
+        <div *ngIf="post.comments.length !== 0">
+            <div class="alert alert-success" *ngFor="let comment of post.comments">
+                {{comment.username}} said: {{comment.comment}}
+            </div>
+        </div>
+        <div class="comment-form">
+            <form class="form-inline" [formGroup]="commentForm" (ngSubmit)="addComment()">
+                <fieldset>
+                    <legend>Share your thoughts</legend>
+                    <!-- <div *ngIf="invalidFormErrorMessage" class="alert alert-danger">
+                        {{invalidFormErrorMessage}}
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Your comment</label>
+                        <textarea type="text" class="form-control" id="comment" formControlName="comment"
+                            maxlength="350" placeholder="What I like about this is..."></textarea>
+                        <small class="invalid-comment" *ngIf="comment?.invalid && comment?.touched">Your comment is invalid</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-end" [disabled]="commentForm.invalid">Submit</button>
+                </fieldset>
+            </form>
         </div>
     </div>
 </div>

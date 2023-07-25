@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PostService } from './post.service';
 import { Post } from 'src/app/types/Post';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post',
@@ -16,7 +17,19 @@ export class PostComponent implements OnInit {
     comments: []
   };
 
-  constructor(private route: ActivatedRoute, private postService: PostService) { }
+  commentForm: FormGroup = this.fb.group({
+    username: 'Pesho',
+    comment: ['', [
+      Validators.required,
+      Validators.maxLength(350)
+    ]],
+  });
+
+  get comment() {
+    return this.commentForm.get('comment');
+  }
+
+  constructor(private route: ActivatedRoute, private postService: PostService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -28,5 +41,9 @@ export class PostComponent implements OnInit {
         }
       });
     });
+  }
+
+  addComment() {
+    console.log(this.commentForm.value);
   }
 }

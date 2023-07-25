@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
     this.active = !this.active;
   }
 
-  logout() {
+  logout(event: Event) {
+    event.preventDefault();
     this.localStorageService.remove('authToken');
     this.window.location.reload();
   }
