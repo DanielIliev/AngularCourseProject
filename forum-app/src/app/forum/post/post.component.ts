@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { PostService } from './post.service';
 import { Post } from 'src/app/types/Post';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UserData } from 'src/app/types/authTypes';
 
 @Component({
   selector: 'app-post',
@@ -12,6 +13,13 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class PostComponent implements OnInit {
   loggedIn: boolean = false;
+  isAuthor: boolean = false;
+  userData: UserData = {
+    _id: '',
+    username: '',
+    email: ''
+  }
+  errorMessage = '';
 
   post: Post = {
     _id: '',
@@ -23,7 +31,7 @@ export class PostComponent implements OnInit {
   };
 
   commentForm: FormGroup = this.fb.group({
-    username: 'Pesho',
+    username: this.userData.username,
     comment: ['', [
       Validators.required,
       Validators.maxLength(350)
@@ -34,11 +42,16 @@ export class PostComponent implements OnInit {
     return this.commentForm.get('comment');
   }
 
-  constructor(private route: ActivatedRoute, private postService: PostService, private fb: FormBuilder, private localStorageService: LocalStorageService) {
+  constructor(private route: ActivatedRoute, private postService: PostService, private fb: FormBuilder, private localStorageService: LocalStorageService, private router: Router) {
     const token = this.localStorageService.get('authToken');
+    const userData = this.localStorageService.get('userData');
 
     if (token) {
       this.loggedIn = true;
+    }
+
+    if (userData) {
+      this.userData = JSON.parse(userData);
     }
   }
 
@@ -49,6 +62,11 @@ export class PostComponent implements OnInit {
       this.postService.fetchPost(postId).subscribe({
         next: (response) => {
           this.post = response;
+          console.log(this.userData._id === response.author);
+          
+          if (this.userData._id === response.author) {
+            this.isAuthor = true;
+          }
         }
       });
     });
@@ -56,5 +74,16 @@ export class PostComponent implements OnInit {
 
   addComment() {
     console.log(this.commentForm.value);
+  }
+
+  deletePost(postId: String): void {
+    this.postService.deletePost(String(postId)).subscribe({
+      error: (err) => {
+        this.errorMessage = err;
+      },
+      complete: () => {
+        this.router.navigate(['/board']);
+      }
+    });
   }
 }

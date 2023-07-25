@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const { addPostValidators } = require('../middlewares/inputValidators');
-const { fetchPosts, addPost, fetchPostById } = require('../services/postService');
+const { fetchPosts, addPost, fetchPostById, deletePost } = require('../services/postService');
 const { SECRET } = require('../constants');
 const jwt = require('jsonwebtoken');
 const router = require('express').Router();
@@ -72,6 +72,23 @@ router.get('/post/:id', async (req, res) => {
         res.end();
     } catch (error) {
         res.status(404).json('Unable to fetch post');
+        res.end();
+    }
+});
+
+router.get('/delete/:id', async (req, res) => {
+    console.log(req.params);
+    try {
+        const id = req.params.id;
+
+        await deletePost(id);
+
+        res.json({
+            success: true
+        });
+
+    } catch (error) {
+        res.status(400).json('Unable to delete the post');
         res.end();
     }
 });

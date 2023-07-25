@@ -15,3 +15,5 @@ exports.fetchPostById = async (id) => {
 }
 
 exports.addPost = async (data) => await Post.create({ ...data });
+
+exports.deletePost = async (id) => await Post.findOneAndDelete({ '_id': id });

@@ -10,7 +10,14 @@ interface RegisterCredentials {
     repass: string
 }
 
+interface UserData {
+    _id: string,
+    username: string,
+    email: string
+}
+
 export {
     LoginCredentials,
-    RegisterCredentials
+    RegisterCredentials,
+    UserData
 }
