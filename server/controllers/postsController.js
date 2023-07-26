@@ -47,7 +47,6 @@ router.get('/post/:id', async (req, res) => {
 });
 
 router.get('/delete/:id', async (req, res) => {
-    console.log(req.params);
     try {
         const id = req.params.id;
 

@@ -14,12 +14,13 @@ import { UserData } from 'src/app/types/authTypes';
 export class PostComponent implements OnInit {
   loggedIn: boolean = false;
   isAuthor: boolean = false;
+  errorMessage:string = '';
+
   userData: UserData = {
     _id: '',
     username: '',
     email: ''
   }
-  errorMessage = '';
 
   post: Post = {
     _id: '',
@@ -62,10 +63,14 @@ export class PostComponent implements OnInit {
       this.postService.fetchPost(postId).subscribe({
         next: (response) => {
           this.post = response;
-          console.log(this.userData._id === response.author);
           
           if (this.userData._id === response.author) {
             this.isAuthor = true;
+          }
+        },
+        error: (err) => {
+          if (err.status === 404) {
+            this.router.navigate(['notfound']);
           }
         }
       });
