@@ -3,6 +3,8 @@ const authService = require('./authService.js');
 
 exports.fetchPosts = async () => await Post.find().lean();
 
+exports.fetchById = async (id) => await Post.findOne({ '_id': id });
+
 exports.fetchPostById = async (id) => {
     const post = await Post.findOne({ '_id': id }).lean();
     const authorId = String(post.author);

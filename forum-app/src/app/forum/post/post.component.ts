@@ -82,8 +82,12 @@ export class PostComponent implements OnInit {
   }
 
   deletePost(postId: String): void {
-    this.postService.deletePost(String(postId)).subscribe({
+    const userId: string = this.userData._id;
+
+    this.postService.deletePost(userId, String(postId)).subscribe({
       error: (err) => {
+        console.log(err);
+        
         this.errorMessage = err;
       },
       complete: () => {

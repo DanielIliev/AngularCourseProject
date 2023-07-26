@@ -14,20 +14,25 @@ const authorizedUser = async (req, res, next) => {
     const JWT = token.split(' ')[1];
 
     try {
-        await jwt.verify(JWT, SECRET, (error, decoded) => {
+        const result = await jwt.verify(JWT, SECRET, (error, decoded) => {
             if (error) {
                 return res.status(401).json({
                     success: false,
                     message: 'Unauthorized operation'
                 });
             }
+            return decoded;
         });
+
+        req.decoded = result;
     } catch (error) {
         return res.status(401).json({
             success: false,
             message: 'Unauthorized operation'
         });
     }
+
+
 
     next();
 }

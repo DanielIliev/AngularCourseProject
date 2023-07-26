@@ -1,8 +1,6 @@
 const { validationResult } = require('express-validator');
 const { addPostValidators } = require('../middlewares/inputValidators');
-const { fetchPosts, addPost, fetchPostById, deletePost } = require('../services/postService');
-const { SECRET } = require('../constants');
-const jwt = require('jsonwebtoken');
+const { fetchPosts, addPost, fetchPostById, deletePost, fetchById } = require('../services/postService');
 const authorizedUser = require('../middlewares/authorizationMiddleware');
 const router = require('express').Router();
 
@@ -46,18 +44,25 @@ router.get('/post/:id', async (req, res) => {
     }
 });
 
-router.get('/delete/:id', async (req, res) => {
+router.get('/delete/:userId/:postId', authorizedUser, async (req, res) => {
     try {
-        const id = req.params.id;
+        const userId = req.params.userId;
+        const postId = req.params.postId;
 
-        await deletePost(id);
+        console.log(req.decoded);
+
+        if (req.decoded._id !== userId) {
+            return res.status(401).json('You are not the author of this post');
+        }
+
+        await deletePost(postId);
 
         return res.json({
             success: true
         });
 
     } catch (error) {
-        return res.status(400).json('Unable to delete the post');
+        return res.status(400).json('Unable to delete the post, please try again later');
     }
 });
 
