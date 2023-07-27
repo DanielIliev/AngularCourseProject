@@ -83,9 +83,7 @@ export class EditComponent implements OnInit {
         }
       },
       error: (err) => {
-        if (err.status === 404) {
-          this.router.navigate(['notfound']);
-        }
+        this.router.navigate(['notfound']);
       }
     });
   }
