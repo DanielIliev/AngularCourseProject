@@ -13,7 +13,7 @@ router.get('/posts', async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'Unable to fetch posts, please try again later'
+            message: 'We are unable to fetch posts, please try again later'
         });
     }
 });

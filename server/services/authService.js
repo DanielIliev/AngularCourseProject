@@ -41,6 +41,17 @@ exports.login = async (username, password) => {
 }
 
 exports.register = async (username, email, password) => {
+    const existingUser = await User.findOne({
+        $or: [
+            { username },
+            { email }
+        ]
+    });
+    
+    if (existingUser) {
+        throw new Error('User is already registered with the same credentials');
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     try {

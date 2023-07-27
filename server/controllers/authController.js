@@ -10,14 +10,12 @@ router.post('/login', async (req, res) => {
         const token = await authService.login(username, password);
         await authService.login(username, password);
 
-        res.json(token);
-        res.end();
+        return res.json(token);
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: error.message
         });
-        res.end();
     }
 });
 
@@ -29,7 +27,10 @@ router.post('/register', registerValidators, async (req, res) => {
     }
 
     if (req.body.password !== req.body.repass) {
-        return res.status(400).json('Passwords must match');
+        return res.status(400).json({
+            success: false,
+            message: 'Passwords must match!'
+        });
     }
 
     try {
@@ -37,21 +38,17 @@ router.post('/register', registerValidators, async (req, res) => {
 
         await authService.register(username, email, password);
 
-        res.json({ message: 'Registered!' });
-        res.end();
+        return res.end();
     } catch (error) {
-        res.status(500).json({
+        return res.status(400).json({
             success: false,
-            message: 'We are unable to register account, please try again later'
+            message: error.message
         });
-        res.end();
     }
 });
 
 router.get('/logout', (req, res) => {
-    res.json({ message: 'Logged out' });
     res.end();
-    // TODO: Remove JWT token ?
 });
 
 module.exports = router;

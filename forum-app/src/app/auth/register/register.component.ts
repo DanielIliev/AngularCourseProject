@@ -63,8 +63,9 @@ export class RegisterComponent {
         if (err.error.errors) {
           this.errorMessage = err.error.errors[0].msg;
           return;
-        } else {
-          this.errorMessage = err.message;
+        }
+        else {
+          this.errorMessage = err.error.message;
           return;
         }
       },
