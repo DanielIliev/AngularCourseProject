@@ -2,8 +2,8 @@
     <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
         <fieldset>
             <legend>Register your profile</legend>
-            <div class="alert alert-danger" *ngIf="invalidFormMessage" role="alert">
-                {{invalidFormMessage}}
+            <div class="alert alert-danger" *ngIf="errorMessage" role="alert">
+                {{errorMessage}}
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>

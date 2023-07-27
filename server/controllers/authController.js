@@ -13,7 +13,10 @@ router.post('/login', async (req, res) => {
         res.json(token);
         res.end();
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({
+            success: false,
+            message: error.message
+        });
         res.end();
     }
 });
@@ -37,7 +40,10 @@ router.post('/register', registerValidators, async (req, res) => {
         res.json({ message: 'Registered!' });
         res.end();
     } catch (error) {
-        res.status(400).json('Unable to register account, please try again later');
+        res.status(500).json({
+            success: false,
+            message: 'We are unable to register account, please try again later'
+        });
         res.end();
     }
 });

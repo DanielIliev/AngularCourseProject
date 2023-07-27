@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     ]],
   });
 
-  invalidFormMessage: string = '';
+  errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private loginService: LoginService, private localStorageService: LocalStorageService, @Inject(WINDOW) private window: Window) { }
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.invalid) {
-      this.invalidFormMessage = 'The form you have submitted is invalid!';
+      this.errorMessage = 'The form you have submitted is invalid!';
       return;
     }
 
@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
         const userData = jwt(token);
         this.localStorageService.set('authToken', token);
         this.localStorageService.set('userData', JSON.stringify(userData));
-        this.invalidFormMessage = '';
+        this.errorMessage = '';
       },
       error: (err) => {
-        this.invalidFormMessage = err.error.message;
+        this.errorMessage = err.error.message;
       },
       complete: () => {
         this.window.location.reload();

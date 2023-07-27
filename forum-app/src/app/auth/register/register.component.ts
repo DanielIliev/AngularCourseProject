@@ -47,11 +47,12 @@ export class RegisterComponent {
 
   constructor(private fb: FormBuilder, private registerService: RegisterService) { }
 
-  invalidFormMessage: string = '';
+  errorMessage: string = '';
 
   register() {
+    this.errorMessage = '';
     if (this.registerForm.invalid) {
-      this.invalidFormMessage = 'The form you have submitted is invalid';
+      this.errorMessage = 'The form you have submitted is invalid';
       return;
     }
 
@@ -60,14 +61,15 @@ export class RegisterComponent {
     this.registerService.register(credentials).subscribe({
       error: (err) => {
         if (err.error.errors) {
-          this.invalidFormMessage = err.error.errors[0].msg;
+          this.errorMessage = err.error.errors[0].msg;
+          return;
+        } else {
+          this.errorMessage = err.message;
           return;
         }
-
-        this.invalidFormMessage = err.error;
       },
       complete: () => {
-        this.invalidFormMessage = '';
+        this.errorMessage = '';
         this.registerForm.reset();
       }
     });
