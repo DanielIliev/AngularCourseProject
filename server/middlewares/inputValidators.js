@@ -41,7 +41,7 @@ const registerValidators = [
     emailValidators,
     passwordValidators,
     repeatPasswordValidators
-]
+];
 
 const addPostValidators = [
     check('title')
@@ -65,9 +65,24 @@ const addPostValidators = [
         .withMessage('Post content must be between 10 and 350 characters long')
         .trim()
         .escape()
-]
+];
+
+const commentValidators = [
+    check('username')
+    .not().isEmpty()
+    .withMessage('Unable to add your comment'),
+    check('comment')
+    .not().isEmpty()
+    .withMessage('The comment field is required!')
+    .isLength({
+        max: 350
+    }).withMessage('Your comment exceeds the maximum length of 350 characters')
+    .trim()
+    .escape()
+];
 
 module.exports = {
     registerValidators,
-    addPostValidators
+    addPostValidators,
+    commentValidators
 };

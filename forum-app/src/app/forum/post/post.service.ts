@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { baseUrl } from 'src/app/constants/constants';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { Post } from 'src/app/types/Post';
+import { Comment, Post } from 'src/app/types/Post';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +26,23 @@ export class PostService {
     }
     
     return this.http.get(url, { headers });
+  }
+
+  addComment(id: string, data: Comment) {
+    const url = `${baseUrl}comment`;
+    const token = String(this.localStorageService.get('authToken'));
+
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+
+    const body = {
+      id,
+      username: data.username,
+      comment: data.comment
+    }
+
+    return this.http.post(url, body, { headers });
   }
 }

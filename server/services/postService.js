@@ -19,3 +19,20 @@ exports.fetchPostById = async (id) => {
 exports.addPost = async (data) => await Post.create({ ...data });
 
 exports.deletePost = async (id) => await Post.findOneAndDelete({ '_id': id });
+
+exports.addComment = async (data) => {
+    const { id, username, comment } = data;
+
+    await Post.findOneAndUpdate({ '_id': id }, {
+        $push: {
+            'comments': {
+                'username': username,
+                'comment': comment
+            }
+        }
+    });
+
+    const post = await this.fetchById(id);
+
+    return post.comments;
+}

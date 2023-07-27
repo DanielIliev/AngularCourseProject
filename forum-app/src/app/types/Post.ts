@@ -20,5 +20,6 @@ interface Comment {
 
 export {
     Post,
-    postForm
+    postForm,
+    Comment
 }

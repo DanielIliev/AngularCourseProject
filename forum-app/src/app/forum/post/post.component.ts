@@ -14,7 +14,7 @@ import { UserData } from 'src/app/types/authTypes';
 export class PostComponent implements OnInit {
   loggedIn: boolean = false;
   isAuthor: boolean = false;
-  errorMessage:string = '';
+  errorMessage: string = '';
 
   userData: UserData = {
     _id: '',
@@ -32,7 +32,7 @@ export class PostComponent implements OnInit {
   };
 
   commentForm: FormGroup = this.fb.group({
-    username: this.userData.username,
+    username: '',
     comment: ['', [
       Validators.required,
       Validators.maxLength(350)
@@ -53,6 +53,7 @@ export class PostComponent implements OnInit {
 
     if (userData) {
       this.userData = JSON.parse(userData);
+      this.commentForm.patchValue({ username: this.userData.username });
     }
   }
 
@@ -63,7 +64,7 @@ export class PostComponent implements OnInit {
       this.postService.fetchPost(postId).subscribe({
         next: (response) => {
           this.post = response;
-          
+
           if (this.userData._id === response.author) {
             this.isAuthor = true;
           }
@@ -77,8 +78,23 @@ export class PostComponent implements OnInit {
     });
   }
 
-  addComment() {
-    console.log(this.commentForm.value);
+  addComment(): void {
+    if (this.commentForm.invalid) {
+      this.errorMessage = 'The form you have submitted is invalid';
+      return;
+    }
+
+    this.postService.addComment(String(this.post._id), this.commentForm.value).subscribe({
+      next: (response) => {
+        this.post.comments = Object.values(response);
+      },
+      error: (err) => {
+        if (err.error.errors) {
+          this.errorMessage = err.error.errors[0].msg;
+          return;
+        }
+      }
+    });
   }
 
   deletePost(postId: String): void {
@@ -86,9 +102,7 @@ export class PostComponent implements OnInit {
 
     this.postService.deletePost(userId, String(postId)).subscribe({
       error: (err) => {
-        console.log(err);
-        
-        this.errorMessage = err;
+        this.errorMessage = err.statusText;
       },
       complete: () => {
         this.router.navigate(['/board']);

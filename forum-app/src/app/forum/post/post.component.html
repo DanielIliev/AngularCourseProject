@@ -1,7 +1,4 @@
 <div class="container post-container">
-    <div *ngIf="errorMessage" class="alert alert-danger">
-        {{errorMessage}}
-    </div>
     <div class="card">
         <div class="card-body">
             <h1>{{post.title}}</h1>
@@ -28,9 +25,9 @@
             <form class="form-inline" [formGroup]="commentForm" (ngSubmit)="addComment()">
                 <fieldset>
                     <legend>Share your thoughts</legend>
-                    <!-- <div *ngIf="invalidFormErrorMessage" class="alert alert-danger">
-                        {{invalidFormErrorMessage}}
-                    </div> -->
+                    <div *ngIf="errorMessage" class="alert alert-danger">
+                        {{errorMessage}}
+                    </div>
                     <div class="mb-3">
                         <label for="comment" class="form-label">Your comment</label>
                         <textarea type="text" class="form-control" id="comment" formControlName="comment"

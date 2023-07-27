@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
-const { addPostValidators } = require('../middlewares/inputValidators');
-const { fetchPosts, addPost, fetchPostById, deletePost, fetchById } = require('../services/postService');
+const { addPostValidators, commentValidators } = require('../middlewares/inputValidators');
+const { fetchPosts, addPost, fetchPostById, deletePost, fetchById, addComment } = require('../services/postService');
 const authorizedUser = require('../middlewares/authorizationMiddleware');
 const router = require('express').Router();
 
@@ -49,8 +49,6 @@ router.get('/delete/:userId/:postId', authorizedUser, async (req, res) => {
         const userId = req.params.userId;
         const postId = req.params.postId;
 
-        console.log(req.decoded);
-
         if (req.decoded._id !== userId) {
             return res.status(401).json('You are not the author of this post');
         }
@@ -65,5 +63,24 @@ router.get('/delete/:userId/:postId', authorizedUser, async (req, res) => {
         return res.status(400).json('Unable to delete the post, please try again later');
     }
 });
+
+router.post('/comment', authorizedUser, commentValidators, async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+        const response = await addComment({ ...req.body });
+
+        return res.json(response);
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: 'Unable to add your comment, please try again later'
+        });
+    }
+})
 
 module.exports = router;
