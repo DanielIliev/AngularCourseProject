@@ -4,6 +4,7 @@ import { BoardComponent } from './board/board.component';
 import { PostComponent } from './post/post.component';
 import { AddComponent } from './add/add.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditComponent } from './edit/edit.component';
 
 
 
@@ -11,7 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     BoardComponent,
     PostComponent,
-    AddComponent
+    AddComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   exports: [
     BoardComponent,
     PostComponent,
-    AddComponent
+    AddComponent,
+    EditComponent
   ]
 })
 export class ForumModule { }

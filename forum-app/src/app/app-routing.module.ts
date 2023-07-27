@@ -9,6 +9,7 @@ import { BoardComponent } from './forum/board/board.component';
 import { PostComponent } from './forum/post/post.component';
 import { AddComponent } from './forum/add/add.component';
 import { UserGuardService } from './guards/user-guard.service';
+import { EditComponent } from './forum/edit/edit.component';
 
 const routes: Routes = [
   { path: '', title: 'Home', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'board', title: 'Board', component: BoardComponent },
   { path: 'post/:id', title: 'Post details', component: PostComponent },
   { path: 'add', title: 'Add post', component: AddComponent, canActivate: [UserGuardService]},
+  { path: 'edit/:id', title: 'Edit post', component: EditComponent, canActivate: [UserGuardService]},
   { path: '**', component: NotfoundComponent }
 ];
 

@@ -1,24 +1,26 @@
 <div class="container post-container">
     <div class="card">
         <div class="card-body">
-            <h1>{{post.title}}</h1>
+            <h3>{{post.title}}</h3>
             <p>{{post.content}}</p>
-            <small>Post made by: {{post.authorName}}</small>
+            <small><b>Post made by:</b> {{post.authorName}}</small>
         </div>
-        <div class="card-body" *ngIf="isAuthor">
-            <a href="javascript:void(0)" class="card-link">Edit</a>
-            <a href="javascript:void(0)" (click)="deletePost(post._id)" class="card-link">Delete</a>
+        <div class="card-body post-actions" *ngIf="isAuthor">
+            <button type="button" class="btn btn-primary" (click)="editPost(post._id)">
+                Edit
+            </button>
+            <button type="button" class="btn btn-danger" (click)="deletePost(post._id)">
+                Delete
+            </button>
         </div>
     </div>
-
-    <hr>
     <div class="comments-list">
         <div *ngIf="post.comments.length === 0">
             No comments yet
         </div>
         <div *ngIf="post.comments.length !== 0">
             <div class="alert alert-success" *ngFor="let comment of post.comments">
-                {{comment.username}} said: {{comment.comment}}
+                <b>{{comment.username}} said:</b> {{comment.comment}}
             </div>
         </div>
         <div class="comment-form" *ngIf="loggedIn">

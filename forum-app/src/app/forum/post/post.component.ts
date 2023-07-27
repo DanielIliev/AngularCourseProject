@@ -93,8 +93,16 @@ export class PostComponent implements OnInit {
           this.errorMessage = err.error.errors[0].msg;
           return;
         }
+      },
+      complete: () => {
+        this.commentForm.reset();
       }
     });
+  }
+
+  editPost(postId: String) {
+    console.log(postId);
+    this.router.navigate([`/edit/${postId}`]);
   }
 
   deletePost(postId: String): void {

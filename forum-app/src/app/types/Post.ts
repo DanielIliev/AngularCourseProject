@@ -1,16 +1,21 @@
 interface Post {
-    _id: String,
-    title: String,
-    content: String,
-    author: String,
-    authorName: String,
+    _id: string,
+    title: string,
+    content: string,
+    author: string,
+    authorName: string,
     comments: Comment[],
 }
 
-interface postForm {
-    title: String,
-    content: String,
-    author: String
+interface PostForm {
+    title: string,
+    content: string,
+    author: string
+}
+
+interface EditForm {
+    title: string,
+    content: string
 }
 
 interface Comment {
@@ -20,6 +25,7 @@ interface Comment {
 
 export {
     Post,
-    postForm,
+    PostForm,
+    EditForm,
     Comment
 }

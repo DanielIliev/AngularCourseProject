@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddService } from './add.service';
-import { postForm } from 'src/app/types/Post';
+import { PostForm } from 'src/app/types/Post';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
@@ -34,7 +34,7 @@ export class AddComponent {
       return;
     }
 
-    const data: postForm = this.addForm.value;
+    const data: PostForm = this.addForm.value;
     const userData = this.localStorageService.get('userData');
 
     // Confirm that userData is not null
