@@ -5,6 +5,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserData } from 'src/app/types/authTypes';
 import { EditForm } from 'src/app/types/Post';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EditService } from './edit.service';
 
 export interface PostEdit {
   title: string,
@@ -36,15 +37,17 @@ export class EditComponent implements OnInit {
   editForm: FormGroup = this.fb.group({
     title: ['', [
       Validators.required,
+      Validators.minLength(3),
       Validators.maxLength(25)
     ]],
     content: ['', [
       Validators.required,
+      Validators.minLength(3),
       Validators.maxLength(350)
     ]]
   });
 
-  constructor(private route: ActivatedRoute, private router: Router, private postService: PostService, private localStorageService: LocalStorageService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private router: Router, private postService: PostService, private localStorageService: LocalStorageService, private fb: FormBuilder, private editService: EditService) {
     const token = this.localStorageService.get('authToken');
     const userData = this.localStorageService.get('userData');
 
@@ -59,42 +62,60 @@ export class EditComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.postId = String(params.get('id'));
     });
-    
+
   }
 
   ngOnInit(): void {
-      this.postService.fetchPost(this.postId).subscribe({
-        next: (response) => {
-          this.post = {
-            title: String(response.title),
-            content: String(response.content)
-          };
+    this.postService.fetchPost(this.postId).subscribe({
+      next: (response) => {
+        this.post = {
+          title: response.title,
+          content: response.content
+        };
 
-          this.editForm.patchValue({
-            title: this.post.title,
-            content: this.post.content
-          });
+        this.editForm.patchValue({
+          title: this.post.title,
+          content: this.post.content
+        });
 
-          if (this.userData._id !== response.author) {
-            this.router.navigate(['notfound']);
-          }
-        },
-        error: (err) => {
-          if (err.status === 404) {
-            this.router.navigate(['notfound']);
-          }
+        if (this.userData._id !== response.author) {
+          this.router.navigate(['notfound']);
         }
-      });
+      },
+      error: (err) => {
+        if (err.status === 404) {
+          this.router.navigate(['notfound']);
+        }
+      }
+    });
   }
 
   edit(event: Event) {
-      event.preventDefault();
+    event.preventDefault();
 
-      const data: EditForm = this.editForm.value;
+    if (this.editForm.invalid) {
+      this.errorMessage = 'The form you have submitted is invalid';
+      return;
+    }
 
+    const data: EditForm = this.editForm.value;
+    this.errorMessage = '';
+
+    this.editService.editPost(this.postId, data).subscribe({
+      error: (err) => {
+        if (err.error.errors) {
+          this.errorMessage = err.error.errors[0].msg;
+        } else {
+          this.errorMessage = err.message;
+        }
+      },
+      complete: () => {
+        this.router.navigate([`/post/${this.postId}`]);
+      }
+    });
   }
 
   cancel(): void {
-    this.router.navigate(['..']);
+    this.router.navigate([`/post/${this.postId}`]);
   }
 }

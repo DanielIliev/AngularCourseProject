@@ -43,7 +43,7 @@ const registerValidators = [
     repeatPasswordValidators
 ];
 
-const addPostValidators = [
+const postValidators = [
     check('title')
         .not().isEmpty()
         .withMessage('Post title is required!')
@@ -83,6 +83,6 @@ const commentValidators = [
 
 module.exports = {
     registerValidators,
-    addPostValidators,
+    postValidators,
     commentValidators
 };

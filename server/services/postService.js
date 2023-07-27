@@ -3,9 +3,9 @@ const authService = require('./authService.js');
 
 exports.fetchPosts = async () => await Post.find().lean();
 
-exports.fetchById = async (id) => await Post.findOne({ '_id': id });
+exports.fetchById = async (id) => await Post.findOne({ '_id': id }).lean();
 
-exports.fetchPostById = async (id) => {
+exports.fetchByIdWithAuthorName = async (id) => {
     const post = await Post.findOne({ '_id': id }).lean();
     const authorId = String(post.author);
     const author = await authService.findById(authorId);
@@ -17,6 +17,15 @@ exports.fetchPostById = async (id) => {
 }
 
 exports.addPost = async (data) => await Post.create({ ...data });
+
+exports.editPost = async (data) => {
+    const { id, title, content } = data;
+
+    await Post.findOneAndUpdate({ '_id': id }, {
+        title,
+        content
+    });
+}
 
 exports.deletePost = async (id) => await Post.findOneAndDelete({ '_id': id });
 

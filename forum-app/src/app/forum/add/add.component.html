@@ -3,8 +3,8 @@
         <form [formGroup]="addForm" (ngSubmit)="add($event)">
             <fieldset>
                 <legend>Write down your post</legend>
-                <div *ngIf="invalidFormErrorMessage" class="alert alert-danger">
-                    {{invalidFormErrorMessage}}
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                    {{errorMessage}}
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>

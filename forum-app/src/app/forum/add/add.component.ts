@@ -14,15 +14,17 @@ export class AddComponent {
   addForm: FormGroup = this.fb.group({
     title: ['', [
       Validators.required,
+      Validators.minLength(3),
       Validators.maxLength(25)
     ]],
     content: ['', [
       Validators.required,
+      Validators.minLength(10),
       Validators.maxLength(350)
     ]]
   });
 
-  invalidFormErrorMessage: string = '';
+  errorMessage: string = '';
   
   constructor(private fb: FormBuilder, private addService: AddService, private router: Router, private localStorageService: LocalStorageService) {}
 
@@ -30,7 +32,7 @@ export class AddComponent {
     event.preventDefault();
 
     if (this.addForm.invalid) {
-      this.invalidFormErrorMessage = 'The form you have submitted is invalid!';
+      this.errorMessage = 'The form you have submitted is invalid!';
       return;
     }
 
@@ -44,10 +46,14 @@ export class AddComponent {
     
     this.addService.addPost(data).subscribe({
       error: (err) => {
-        this.invalidFormErrorMessage = err.error.errors[0].msg;
+        if (err.error.errors) {
+          this.errorMessage = err.error.errors[0].msg;
+        } else {
+          this.errorMessage = err.message;
+        }
       },
       complete: () => {
-        this.invalidFormErrorMessage = '';
+        this.errorMessage = '';
         this.router.navigate(['board']);
       }
     });

@@ -11,4 +11,11 @@
     border: 1px solid #eee;
     padding: 16px;
     overflow: hidden;
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: baseline;
+        gap: 8px;
+    }
 }
