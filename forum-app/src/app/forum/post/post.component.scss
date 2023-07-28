@@ -1,9 +1,21 @@
-.post-actions {
+.card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    overflow: hidden;
+
+    .card-title-content {
+        word-wrap: break-word;
+        word-break: break-all;
+        margin-right: auto;
+    }
+}
+
+.card-actions {
     display: flex;
     justify-content: flex-end;
     align-items: baseline;
     gap: 8px;
-    border-top: 1px solid #000;
 }
 
 .comments-list {

@@ -39,7 +39,6 @@ export class AddComponent {
     const data: PostForm = this.addForm.value;
     const userData = this.localStorageService.get('userData');
 
-    // Confirm that userData is not null
     if (userData) {
       data.author = JSON.parse(userData)._id;
     }
