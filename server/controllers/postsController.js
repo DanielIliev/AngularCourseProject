@@ -24,7 +24,7 @@ router.get('/post/:id', async (req, res) => {
 
         return res.json(post);
     } catch (error) {
-        return res.status(500).json({
+        return res.status(404).json({
             success: false,
             message: 'We are unable to fetch the post, please try again later'
         });
