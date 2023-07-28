@@ -2,22 +2,27 @@
     <div class="alert alert-danger" *ngIf="errorMessage">
         {{errorMessage}}
     </div>
-    <div *ngIf="posts.length === 0">
-        <h3>No posts yet</h3>
+    <div *ngIf="isLoading">
+        <app-loader></app-loader>
     </div>
-    <div *ngIf="posts.length !== 0">
-        <div *ngFor="let post of posts" class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{post.title}}</h5>
-                <p class="card-text">
-                    {{post.content}}
-                </p>
-            </div>
-            <div class="card-footer">
-                <p class="comments-counter">Comments: {{post.comments.length}}</p>
-                <button type="button" class="btn btn-primary float-end" (click)="postDetails(post._id)">
-                    See post
-                </button>
+    <div *ngIf="!isLoading">
+        <div *ngIf="posts.length === 0">
+            <h3>No posts yet</h3>
+        </div>
+        <div *ngIf="posts.length !== 0">
+            <div *ngFor="let post of posts" class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{post.title}}</h5>
+                    <p class="card-text">
+                        {{post.content}}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <p class="comments-counter">Comments: {{post.comments.length}}</p>
+                    <button type="button" class="btn btn-primary float-end" (click)="postDetails(post._id)">
+                        See post
+                    </button>
+                </div>
             </div>
         </div>
     </div>

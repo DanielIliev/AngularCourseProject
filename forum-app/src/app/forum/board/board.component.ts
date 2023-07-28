@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  isLoading: boolean = true;
   posts: Post[] = [];
   errorMessage: string = '';
 
@@ -18,6 +19,7 @@ export class BoardComponent implements OnInit {
     this.boardService.fetchPosts().subscribe({
       next: (response) => {
         this.posts = response;
+        this.isLoading = false;
       },
       error: (err) => {
         this.errorMessage = err.error;
