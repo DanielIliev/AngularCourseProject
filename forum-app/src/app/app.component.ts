@@ -1,18 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { fader } from './route-animations';
 import { LocalStorageService } from './services/local-storage.service';
 import { WINDOW } from './utils/window.injectable';
+import { fadeInOut } from './route-animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [
-    fader
+    fadeInOut
   ]
 })
 export class AppComponent implements OnInit {
+  isShown: string = 'open';
   loggedIn: boolean = false;
   active: boolean = false;
   token: string | null = this.localStorageService.get('authToken');
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
   toggleIconAnimation() {
