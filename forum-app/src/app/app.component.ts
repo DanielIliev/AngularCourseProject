@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { LocalStorageService } from './services/local-storage.service';
 import { WINDOW } from './utils/window.injectable';
 import { fadeInOut } from './route-animations';
+import jwt from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,21 @@ export class AppComponent implements OnInit {
     if (this.token) {
       this.loggedIn = true;
     }
+
+    this.window.addEventListener('storage', (event) => {
+      const token = this.localStorageService.get('authToken');
+
+      if (token === null) {
+        this.localStorageService.remove('userData');
+        this.window.location.reload();
+      }
+
+      if (token !== null) {
+        const userData = jwt(token);
+        this.localStorageService.set('userData', JSON.stringify(userData));
+      }
+
+    });
   }
 
   ngOnInit(): void {

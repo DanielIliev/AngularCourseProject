@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'post/:id', title: 'Post details', component: PostComponent, data: { animation: 'postpage' } },
   { path: 'add', title: 'Add post', component: AddComponent, canActivate: [UserGuardService], data: { animation: 'addpage' } },
   { path: 'edit/:id', title: 'Edit post', component: EditComponent, canActivate: [UserGuardService], data: { animation: 'editpage' } },
-  { path: '**', component: NotfoundComponent }
+  { path: '**', component: NotfoundComponent, data: { animation: 'notfoundpage' } }
 ];
 
 @NgModule({

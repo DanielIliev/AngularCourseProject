@@ -21,7 +21,7 @@ export class UserGuardService implements CanActivate {
     checkIfUserIsLogged(url: string): boolean {
         const token = this.localeStorageService.get('authToken');
 
-        if (token) {
+        if (token !== null) {
             return true;
         }
 
