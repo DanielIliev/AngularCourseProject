@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { baseUrl } from 'src/app/constants/constants';
-import { LoginCredentials } from 'src/app/types/authTypes';
+import { LoginCredentials } from 'src/app/types/Auth';
 
 @Injectable({
   providedIn: 'root',

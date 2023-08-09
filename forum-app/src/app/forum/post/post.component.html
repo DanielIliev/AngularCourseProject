@@ -25,8 +25,56 @@
     <div class="card-body">
       <p>{{ post.content }}</p>
     </div>
+    <div class="card-footer">
+      <h5>Comments</h5>
+      <div class="comments-list">
+        <div *ngIf="post.comments.length === 0">No comments yet</div>
+        <div *ngIf="post.comments.length !== 0">
+          <div
+            class="alert alert-success"
+            *ngFor="let comment of post.comments"
+          >
+            <b>{{ comment.username }} said:</b> {{ comment.comment }}
+          </div>
+        </div>
+        <div class="comment-form" *ngIf="loggedIn">
+          <form
+            class="form-inline"
+            [formGroup]="commentForm"
+            (ngSubmit)="addComment()"
+          >
+            <div *ngIf="errorMessage" class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+            <div class="mb-3">
+              <label for="comment" class="form-label">Your comment</label>
+              <textarea
+                type="text"
+                class="form-control"
+                id="comment"
+                formControlName="comment"
+                maxlength="350"
+                placeholder="What I like about this is..."
+              ></textarea>
+              <small
+                class="invalid-comment"
+                *ngIf="comment?.invalid && comment?.touched"
+                >Your comment is invalid</small
+              >
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary float-end"
+              [disabled]="commentForm.invalid"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="comments-list">
+  <!-- <div class="comments-list">
     <div *ngIf="post.comments.length === 0">No comments yet</div>
     <div *ngIf="post.comments.length !== 0">
       <div class="alert alert-success" *ngFor="let comment of post.comments">
@@ -70,5 +118,5 @@
         </fieldset>
       </form>
     </div>
-  </div>
+  </div> -->
 </div>

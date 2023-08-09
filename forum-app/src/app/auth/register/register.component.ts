@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterCredentials } from 'src/app/types/authTypes';
+import { RegisterCredentials } from 'src/app/types/Auth';
 import { RegisterService } from './register.service';
 
 @Component({

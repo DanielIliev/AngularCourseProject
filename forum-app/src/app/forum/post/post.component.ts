@@ -4,7 +4,7 @@ import { PostService } from './post.service';
 import { Post } from 'src/app/types/Post';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { UserData } from 'src/app/types/authTypes';
+import { UserData } from 'src/app/types/Auth';
 
 @Component({
   selector: 'app-post',
@@ -95,7 +95,8 @@ export class PostComponent implements OnInit {
           }
         },
         complete: () => {
-          this.commentForm.reset();
+          this.errorMessage = '';
+          this.commentForm.get('comment')?.reset();
         },
       });
   }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { PostService } from '../post/post.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { UserData } from 'src/app/types/authTypes';
+import { UserData } from 'src/app/types/Auth';
 import { EditForm } from 'src/app/types/Post';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditService } from './edit.service';

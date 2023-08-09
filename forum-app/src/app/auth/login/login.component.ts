@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { WINDOW } from 'src/app/utils/window.injectable';
-import { LoginCredentials } from 'src/app/types/authTypes';
+import { LoginCredentials } from 'src/app/types/Auth';
 import jwt from 'jwt-decode';
 
 @Component({
