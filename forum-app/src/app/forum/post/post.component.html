@@ -25,18 +25,15 @@
     <div class="card-body">
       <p>{{ post.content }}</p>
     </div>
+    <!-- Comments area -->
     <div class="card-footer">
-      <h5>Comments</h5>
-      <div class="comments-list">
-        <div *ngIf="post.comments.length === 0">No comments yet</div>
-        <div *ngIf="post.comments.length !== 0">
-          <div
-            class="alert alert-success"
-            *ngFor="let comment of post.comments"
-          >
-            <b>{{ comment.username }} said:</b> {{ comment.comment }}
-          </div>
-        </div>
+      <a
+        href="javascript:void(0)"
+        data-bs-toggle="collapse"
+        data-bs-target="#comments"
+        >View comments</a
+      >
+      <div class="comments-list collapse" id="comments">
         <div class="comment-form" *ngIf="loggedIn">
           <form
             class="form-inline"
@@ -70,6 +67,15 @@
               Submit
             </button>
           </form>
+        </div>
+        <div *ngIf="post.comments.length === 0">No comments yet</div>
+        <div *ngIf="post.comments.length !== 0">
+          <div
+            class="alert alert-success"
+            *ngFor="let comment of post.comments | reverse"
+          >
+            <b>{{ comment.username }} said:</b> {{ comment.comment }}
+          </div>
         </div>
       </div>
     </div>

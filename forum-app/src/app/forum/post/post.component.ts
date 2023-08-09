@@ -76,6 +76,23 @@ export class PostComponent implements OnInit {
     });
   }
 
+  editPost(postId: String) {
+    this.router.navigate([`/edit/${postId}`]);
+  }
+
+  deletePost(postId: String): void {
+    const userId: string = this.userData._id;
+
+    this.postService.deletePost(userId, String(postId)).subscribe({
+      error: (err) => {
+        this.errorMessage = err.statusText;
+      },
+      complete: () => {
+        this.router.navigate(['/board']);
+      },
+    });
+  }
+
   addComment(): void {
     if (this.commentForm.invalid) {
       this.errorMessage = 'The form you have submitted is invalid';
@@ -99,22 +116,5 @@ export class PostComponent implements OnInit {
           this.commentForm.get('comment')?.reset();
         },
       });
-  }
-
-  editPost(postId: String) {
-    this.router.navigate([`/edit/${postId}`]);
-  }
-
-  deletePost(postId: String): void {
-    const userId: string = this.userData._id;
-
-    this.postService.deletePost(userId, String(postId)).subscribe({
-      error: (err) => {
-        this.errorMessage = err.statusText;
-      },
-      complete: () => {
-        this.router.navigate(['/board']);
-      },
-    });
   }
 }
