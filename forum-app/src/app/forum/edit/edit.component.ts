@@ -8,14 +8,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditService } from './edit.service';
 
 export interface PostEdit {
-  title: string,
-  content: string,
+  title: string;
+  content: string;
 }
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
   isAuthor: boolean = false;
@@ -26,28 +26,37 @@ export class EditComponent implements OnInit {
   userData: UserData = {
     _id: '',
     username: '',
-    email: ''
-  }
+    email: '',
+  };
 
   post: PostEdit = {
     title: '',
     content: '',
-  }
+  };
 
   editForm: FormGroup = this.fb.group({
-    title: ['', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(25)
-    ]],
-    content: ['', [
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(350)
-    ]]
+    title: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(25)],
+    ],
+    content: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(350),
+      ],
+    ],
   });
 
-  constructor(private route: ActivatedRoute, private router: Router, private postService: PostService, private localStorageService: LocalStorageService, private fb: FormBuilder, private editService: EditService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private postService: PostService,
+    private localStorageService: LocalStorageService,
+    private fb: FormBuilder,
+    private editService: EditService
+  ) {
     const token = this.localStorageService.get('authToken');
     const userData = this.localStorageService.get('userData');
 
@@ -62,7 +71,6 @@ export class EditComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.postId = String(params.get('id'));
     });
-
   }
 
   ngOnInit(): void {
@@ -70,12 +78,12 @@ export class EditComponent implements OnInit {
       next: (response) => {
         this.post = {
           title: response.title,
-          content: response.content
+          content: response.content,
         };
 
         this.editForm.patchValue({
           title: this.post.title,
-          content: this.post.content
+          content: this.post.content,
         });
 
         if (this.userData._id !== response.author) {
@@ -84,7 +92,7 @@ export class EditComponent implements OnInit {
       },
       error: (err) => {
         this.router.navigate(['notfound']);
-      }
+      },
     });
   }
 
@@ -97,7 +105,7 @@ export class EditComponent implements OnInit {
     }
 
     const data: EditForm = this.editForm.value;
-    
+
     this.errorMessage = '';
 
     this.editService.editPost(this.postId, data).subscribe({
@@ -110,7 +118,7 @@ export class EditComponent implements OnInit {
       },
       complete: () => {
         this.router.navigate([`/post/${this.postId}`]);
-      }
+      },
     });
   }
 

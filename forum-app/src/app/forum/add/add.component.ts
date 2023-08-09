@@ -8,25 +8,32 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  styleUrls: ['./add.component.scss'],
 })
 export class AddComponent {
   addForm: FormGroup = this.fb.group({
-    title: ['', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(25)
-    ]],
-    content: ['', [
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(350)
-    ]]
+    title: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(25)],
+    ],
+    content: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(350),
+      ],
+    ],
   });
 
   errorMessage: string = '';
-  
-  constructor(private fb: FormBuilder, private addService: AddService, private router: Router, private localStorageService: LocalStorageService) {}
+
+  constructor(
+    private fb: FormBuilder,
+    private addService: AddService,
+    private router: Router,
+    private localStorageService: LocalStorageService
+  ) {}
 
   add(event: Event): void {
     event.preventDefault();
@@ -42,7 +49,7 @@ export class AddComponent {
     if (userData) {
       data.author = JSON.parse(userData)._id;
     }
-    
+
     this.addService.addPost(data).subscribe({
       error: (err) => {
         if (err.error.errors) {
@@ -54,8 +61,7 @@ export class AddComponent {
       complete: () => {
         this.errorMessage = '';
         this.router.navigate(['board']);
-      }
+      },
     });
-    
   }
 }

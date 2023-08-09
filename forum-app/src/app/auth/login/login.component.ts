@@ -13,17 +13,18 @@ import jwt from 'jwt-decode';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.fb.group({
-    username: ['', [
-      Validators.required,
-    ]],
-    password: ['', [
-      Validators.required,
-    ]],
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required]],
   });
 
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private localStorageService: LocalStorageService, @Inject(WINDOW) private window: Window) { }
+  constructor(
+    private fb: FormBuilder,
+    private loginService: LoginService,
+    private localStorageService: LocalStorageService,
+    @Inject(WINDOW) private window: Window
+  ) {}
 
   ngOnInit(): void {}
 
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
       },
       complete: () => {
         this.window.location.reload();
-      }
+      },
     });
   }
 }

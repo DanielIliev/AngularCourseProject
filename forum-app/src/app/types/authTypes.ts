@@ -1,23 +1,19 @@
 interface LoginCredentials {
-    username: string,
-    password: string
+  username: string;
+  password: string;
 }
 
 interface RegisterCredentials {
-    username: string,
-    email: string,
-    password: string,
-    repass: string
+  username: string;
+  email: string;
+  password: string;
+  repass: string;
 }
 
 interface UserData {
-    _id: string,
-    username: string,
-    email: string
+  _id: string;
+  username: string;
+  email: string;
 }
 
-export {
-    LoginCredentials,
-    RegisterCredentials,
-    UserData
-}
+export { LoginCredentials, RegisterCredentials, UserData };

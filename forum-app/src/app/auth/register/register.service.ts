@@ -4,14 +4,18 @@ import { baseUrl } from 'src/app/constants/constants';
 import { RegisterCredentials } from 'src/app/types/authTypes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegisterService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   register(credentials: RegisterCredentials) {
     const headers = { 'Content-Type': 'application/json' };
 
-    return this.http.post(`${baseUrl}register`, { ...credentials }, { headers });
+    return this.http.post(
+      `${baseUrl}register`,
+      { ...credentials },
+      { headers }
+    );
   }
 }

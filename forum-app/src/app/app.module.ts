@@ -12,9 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ForumModule } from './forum/forum.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -23,9 +21,9 @@ import { ForumModule } from './forum/forum.module';
     HttpClientModule,
     CoreModule,
     AuthModule,
-    ForumModule
+    ForumModule,
   ],
   providers: [LocalStorageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

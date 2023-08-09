@@ -9,7 +9,7 @@ import { UserData } from 'src/app/types/authTypes';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
   loggedIn: boolean = false;
@@ -19,8 +19,8 @@ export class PostComponent implements OnInit {
   userData: UserData = {
     _id: '',
     username: '',
-    email: ''
-  }
+    email: '',
+  };
 
   post: Post = {
     _id: '',
@@ -28,22 +28,25 @@ export class PostComponent implements OnInit {
     content: '',
     author: '',
     authorName: '',
-    comments: []
+    comments: [],
   };
 
   commentForm: FormGroup = this.fb.group({
     username: '',
-    comment: ['', [
-      Validators.required,
-      Validators.maxLength(350)
-    ]],
+    comment: ['', [Validators.required, Validators.maxLength(350)]],
   });
 
   get comment() {
     return this.commentForm.get('comment');
   }
 
-  constructor(private route: ActivatedRoute, private postService: PostService, private fb: FormBuilder, private localStorageService: LocalStorageService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService,
+    private fb: FormBuilder,
+    private localStorageService: LocalStorageService,
+    private router: Router
+  ) {
     const token = this.localStorageService.get('authToken');
     const userData = this.localStorageService.get('userData');
 
@@ -71,7 +74,7 @@ export class PostComponent implements OnInit {
         },
         error: (err) => {
           this.router.navigate(['notfound']);
-        }
+        },
       });
     });
   }
@@ -82,20 +85,22 @@ export class PostComponent implements OnInit {
       return;
     }
 
-    this.postService.addComment(String(this.post._id), this.commentForm.value).subscribe({
-      next: (response) => {
-        this.post.comments = Object.values(response);
-      },
-      error: (err) => {
-        if (err.error.errors) {
-          this.errorMessage = err.error.errors[0].msg;
-          return;
-        }
-      },
-      complete: () => {
-        this.commentForm.reset();
-      }
-    });
+    this.postService
+      .addComment(String(this.post._id), this.commentForm.value)
+      .subscribe({
+        next: (response) => {
+          this.post.comments = Object.values(response);
+        },
+        error: (err) => {
+          if (err.error.errors) {
+            this.errorMessage = err.error.errors[0].msg;
+            return;
+          }
+        },
+        complete: () => {
+          this.commentForm.reset();
+        },
+      });
   }
 
   editPost(postId: String) {
@@ -112,7 +117,7 @@ export class PostComponent implements OnInit {
       },
       complete: () => {
         this.router.navigate(['/board']);
-      }
+      },
     });
   }
 }

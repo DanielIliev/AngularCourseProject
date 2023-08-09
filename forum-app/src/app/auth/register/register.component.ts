@@ -6,26 +6,17 @@ import { RegisterService } from './register.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   registerForm: FormGroup = this.fb.group({
-    username: ['', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(25)
-    ]],
-    password: ['', [
-      Validators.required,
-      Validators.minLength(4),
-    ]],
-    email: ['', [
-      Validators.required,
-      Validators.email
-    ]],
-    repass: ['', [
-      Validators.required,
-    ]]
+    username: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(25)],
+    ],
+    password: ['', [Validators.required, Validators.minLength(4)]],
+    email: ['', [Validators.required, Validators.email]],
+    repass: ['', [Validators.required]],
   });
 
   // Getters for form fields
@@ -45,7 +36,10 @@ export class RegisterComponent {
     return this.registerForm.get('repass');
   }
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService) { }
+  constructor(
+    private fb: FormBuilder,
+    private registerService: RegisterService
+  ) {}
 
   errorMessage: string = '';
 
@@ -63,8 +57,7 @@ export class RegisterComponent {
         if (err.error.errors) {
           this.errorMessage = err.error.errors[0].msg;
           return;
-        }
-        else {
+        } else {
           this.errorMessage = err.error.message;
           return;
         }
@@ -72,7 +65,7 @@ export class RegisterComponent {
       complete: () => {
         this.errorMessage = '';
         this.registerForm.reset();
-      }
+      },
     });
   }
 }

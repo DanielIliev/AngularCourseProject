@@ -1,35 +1,35 @@
 .card-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: flex-end;
-    overflow: hidden;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  overflow: hidden;
 
-    .card-title-content {
-        word-wrap: break-word;
-        word-break: break-all;
-        margin-right: auto;
-    }
+  .card-title-content {
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-right: auto;
+  }
 }
 
 .card-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: baseline;
-    gap: 8px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 8px;
 }
 
 .comments-list {
-    margin: 16px 0px;
+  margin: 16px 0px;
 }
 
 .comment-form {
-    margin: 16px 0px;
-    border: 1px solid #eee;
-    border-radius: 2%;
-    overflow: hidden;
-    padding: 8px;
+  margin: 16px 0px;
+  border: 1px solid #eee;
+  border-radius: 2%;
+  overflow: hidden;
+  padding: 8px;
 
-    .invalid-comment {
-        color: #ff0000;
-    }
+  .invalid-comment {
+    color: #ff0000;
+  }
 }

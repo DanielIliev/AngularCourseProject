@@ -1,23 +1,41 @@
 <div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
-        <fieldset>
-            <legend>Login to your profile</legend>
-            <div class="alert alert-danger" *ngIf="errorMessage" role="alert">
-                {{errorMessage}}
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" formControlName="username">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" formControlName="password">
-            </div>
-            <div class="mb-3 form-actions">
-                <p class="action-holder">Don't have an account ? Click <a class="action-link"
-                        routerLink="/register">here</a> to register</p>
-                <button type="submit" class="btn btn-primary float-end" [disabled]="loginForm.invalid">Submit</button>
-            </div>
-        </fieldset>
-    </form>
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+    <fieldset>
+      <legend>Login to your profile</legend>
+      <div class="alert alert-danger" *ngIf="errorMessage" role="alert">
+        {{ errorMessage }}
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          formControlName="username"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+        />
+      </div>
+      <div class="mb-3 form-actions">
+        <p class="action-holder">
+          Don't have an account ? Click
+          <a class="action-link" routerLink="/register">here</a> to register
+        </p>
+        <button
+          type="submit"
+          class="btn btn-primary float-end"
+          [disabled]="loginForm.invalid"
+        >
+          Submit
+        </button>
+      </div>
+    </fieldset>
+  </form>
 </div>

@@ -6,14 +6,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
   isLoading: boolean = true;
   posts: Post[] = [];
   errorMessage: string = '';
 
-  constructor(private boardService: BoardService, private router: Router) { }
+  constructor(private boardService: BoardService, private router: Router) {}
 
   ngOnInit(): void {
     this.boardService.fetchPosts().subscribe({
@@ -23,11 +23,11 @@ export class BoardComponent implements OnInit {
       },
       error: (err) => {
         this.errorMessage = err.error;
-      }
+      },
     });
   }
 
-  postDetails(id: String):void {
+  postDetails(id: String): void {
     this.router.navigate([`post/${id}`]);
   }
 }

@@ -5,21 +5,9 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule
-  ], 
-  exports: [
-    LoginComponent,
-    RegisterComponent
-  ]
+  declarations: [LoginComponent, RegisterComponent],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  exports: [LoginComponent, RegisterComponent],
 })
-export class AuthModule { }
+export class AuthModule {}

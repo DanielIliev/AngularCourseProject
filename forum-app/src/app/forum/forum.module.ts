@@ -7,25 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditComponent } from './edit/edit.component';
 import { SharedModule } from '../shared/shared.module';
 
-
-
 @NgModule({
-  declarations: [
-    BoardComponent,
-    PostComponent,
-    AddComponent,
-    EditComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    SharedModule
-  ],
-  exports: [
-    BoardComponent,
-    PostComponent,
-    AddComponent,
-    EditComponent
-  ]
+  declarations: [BoardComponent, PostComponent, AddComponent, EditComponent],
+  imports: [CommonModule, ReactiveFormsModule, SharedModule],
+  exports: [BoardComponent, PostComponent, AddComponent, EditComponent],
 })
-export class ForumModule { }
+export class ForumModule {}

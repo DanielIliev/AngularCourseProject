@@ -12,18 +12,61 @@ import { UserGuardService } from './guards/user-guard.service';
 import { EditComponent } from './forum/edit/edit.component';
 
 const routes: Routes = [
-  { path: '', title: 'Home', component: HomeComponent, data: { animation: 'homepage' } },
-  { path: 'login', title: 'Login', component: LoginComponent, canActivate: [GuestGuardService], data: { animation: 'loginpage' } },
-  { path: 'register', title: 'Register', component: RegisterComponent, canActivate: [GuestGuardService], data: { animation: 'registerpage' } },
-  { path: 'board', title: 'Board', component: BoardComponent, data: { animation: 'boardpage' } },
-  { path: 'post/:id', title: 'Post details', component: PostComponent, data: { animation: 'postpage' } },
-  { path: 'add', title: 'Add post', component: AddComponent, canActivate: [UserGuardService], data: { animation: 'addpage' } },
-  { path: 'edit/:id', title: 'Edit post', component: EditComponent, canActivate: [UserGuardService], data: { animation: 'editpage' } },
-  { path: '**', component: NotfoundComponent, data: { animation: 'notfoundpage' } }
+  {
+    path: '',
+    title: 'Home',
+    component: HomeComponent,
+    data: { animation: 'homepage' },
+  },
+  {
+    path: 'login',
+    title: 'Login',
+    component: LoginComponent,
+    canActivate: [GuestGuardService],
+    data: { animation: 'loginpage' },
+  },
+  {
+    path: 'register',
+    title: 'Register',
+    component: RegisterComponent,
+    canActivate: [GuestGuardService],
+    data: { animation: 'registerpage' },
+  },
+  {
+    path: 'board',
+    title: 'Board',
+    component: BoardComponent,
+    data: { animation: 'boardpage' },
+  },
+  {
+    path: 'post/:id',
+    title: 'Post details',
+    component: PostComponent,
+    data: { animation: 'postpage' },
+  },
+  {
+    path: 'add',
+    title: 'Add post',
+    component: AddComponent,
+    canActivate: [UserGuardService],
+    data: { animation: 'addpage' },
+  },
+  {
+    path: 'edit/:id',
+    title: 'Edit post',
+    component: EditComponent,
+    canActivate: [UserGuardService],
+    data: { animation: 'editpage' },
+  },
+  {
+    path: '**',
+    component: NotfoundComponent,
+    data: { animation: 'notfoundpage' },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

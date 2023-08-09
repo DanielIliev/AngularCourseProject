@@ -9,9 +9,7 @@ import jwt from 'jwt-decode';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [
-    fadeInOut
-  ]
+  animations: [fadeInOut],
 })
 export class AppComponent implements OnInit {
   isShown: string = 'open';
@@ -19,11 +17,10 @@ export class AppComponent implements OnInit {
   active: boolean = false;
   token: string | null = this.localStorageService.get('authToken');
 
-  constructor(private localStorageService: LocalStorageService, @Inject(WINDOW) private window: Window) {
-    if (this.token) {
-      this.loggedIn = true;
-    }
-
+  constructor(
+    private localStorageService: LocalStorageService,
+    @Inject(WINDOW) private window: Window
+  ) {
     this.window.addEventListener('storage', (event) => {
       const token = this.localStorageService.get('authToken');
 
@@ -36,7 +33,6 @@ export class AppComponent implements OnInit {
         const userData = jwt(token);
         this.localStorageService.set('userData', JSON.stringify(userData));
       }
-
     });
   }
 
@@ -47,11 +43,14 @@ export class AppComponent implements OnInit {
   }
 
   prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+    return (
+      outlet &&
+      outlet.activatedRouteData &&
+      outlet.activatedRouteData['animation']
+    );
   }
 
   toggleIconAnimation() {
-    // TODO hide collapsed menu on nav click
     this.active = !this.active;
   }
 

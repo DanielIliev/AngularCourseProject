@@ -5,11 +5,13 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Comment, Post } from 'src/app/types/Post';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
-
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
+  ) {}
 
   fetchPost(id: string) {
     const url = `${baseUrl}post/${id}`;
@@ -22,9 +24,9 @@ export class PostService {
     const token = String(this.localStorageService.get('authToken'));
 
     const headers = {
-      'Authorization': `Bearer ${token}`
-    }
-    
+      Authorization: `Bearer ${token}`,
+    };
+
     return this.http.get(url, { headers });
   }
 
@@ -33,15 +35,15 @@ export class PostService {
     const token = String(this.localStorageService.get('authToken'));
 
     const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
 
     const body = {
       id,
       username: data.username,
-      comment: data.comment
-    }
+      comment: data.comment,
+    };
 
     return this.http.post(url, body, { headers });
   }

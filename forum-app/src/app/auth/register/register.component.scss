@@ -1,23 +1,23 @@
 .register-form {
-    border: 1px solid #eee;
-    padding: 16px;
-    overflow: hidden;
+  border: 1px solid #eee;
+  padding: 16px;
+  overflow: hidden;
 
-    .form-actions {
-        display: flex;
-        align-items: baseline;
-        justify-content: flex-end;
+  .form-actions {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
 
-        .action-holder {
-            margin-right: auto;
+    .action-holder {
+      margin-right: auto;
 
-            .action-link {
-                cursor: pointer;
-            }
-        }
+      .action-link {
+        cursor: pointer;
+      }
     }
+  }
 
-    .input-error-message {
-        color: #ff0000;
-    }
+  .input-error-message {
+    color: #ff0000;
+  }
 }
