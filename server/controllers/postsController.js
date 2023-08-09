@@ -73,7 +73,7 @@ router.post('/posts/add', authorizedUser, postValidators, async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'Unable to add your post, please try again later'
+            message: 'We are unable to add your post, please try again later'
         });
     }
 });
@@ -92,7 +92,7 @@ router.post('/comment', authorizedUser, commentValidators, async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'Unable to add your comment, please try again later'
+            message: 'We are unable to add your comment, please try again later'
         });
     }
 });

@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{post.title}}</h5>
                     <p class="card-text">
-                        {{post.content}}
+                        {{post.content | shorten: 50}}
                     </p>
                 </div>
                 <div class="card-footer">
