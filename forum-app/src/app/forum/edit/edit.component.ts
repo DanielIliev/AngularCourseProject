@@ -20,6 +20,7 @@ export interface PostEdit {
 export class EditComponent implements OnInit {
   isAuthor: boolean = false;
   loggedIn: boolean = false;
+  isLoading: boolean = true;
   errorMessage: string = '';
   postId: string = '';
 
@@ -85,6 +86,8 @@ export class EditComponent implements OnInit {
           title: this.post.title,
           content: this.post.content,
         });
+
+        this.isLoading = false;
 
         if (this.userData._id !== response.author) {
           this.router.navigate(['notfound']);
