@@ -3,7 +3,6 @@ const { check } = require('express-validator');
 // Authentication validators
 const usernameValidators =
     check('username')
-        .escape()
         .not()
         .isEmpty()
         .withMessage('Username is required!')
@@ -20,7 +19,6 @@ const usernameValidators =
 
 const emailValidators =
     check('email')
-        .escape()
         .not()
         .isEmpty()
         .withMessage('Email is required!')
@@ -30,7 +28,6 @@ const emailValidators =
 
 const passwordValidators =
     check('password')
-        .escape()
         .not()
         .isEmpty()
         .withMessage('Password is required!')
@@ -43,7 +40,6 @@ const passwordValidators =
 
 const repeatPasswordValidators =
     check('repass')
-        .escape()
         .not()
         .isEmpty()
         .withMessage('Repeat password is required!')
@@ -59,7 +55,6 @@ const registerValidators = [
 // Content validators
 const postValidators = [
     check('title')
-        .escape()
         .not()
         .isEmpty()
         .withMessage('Post title is required!')
@@ -71,7 +66,6 @@ const postValidators = [
         .trim(),
 
     check('content')
-        .escape()
         .not()
         .isEmpty({ ignore_whitespace: false })
         .withMessage('Post content is required!')
@@ -85,14 +79,12 @@ const postValidators = [
 
 const commentValidators = [
     check('username')
-        .escape()
         .not()
         .isEmpty()
         .withMessage('Unable to add your comment')
         .trim(),
         
     check('comment')
-        .escape()
         .not()
         .isEmpty()
         .withMessage('The comment field is required!')

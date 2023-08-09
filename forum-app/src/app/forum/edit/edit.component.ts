@@ -42,7 +42,7 @@ export class EditComponent implements OnInit {
     ]],
     content: ['', [
       Validators.required,
-      Validators.minLength(3),
+      Validators.minLength(10),
       Validators.maxLength(350)
     ]]
   });
@@ -97,6 +97,7 @@ export class EditComponent implements OnInit {
     }
 
     const data: EditForm = this.editForm.value;
+    
     this.errorMessage = '';
 
     this.editService.editPost(this.postId, data).subscribe({
