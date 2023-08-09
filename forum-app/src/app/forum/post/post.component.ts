@@ -14,6 +14,7 @@ import { UserData } from 'src/app/types/Auth';
 export class PostComponent implements OnInit {
   loggedIn: boolean = false;
   isAuthor: boolean = false;
+  isLoading: boolean = true;
   errorMessage: string = '';
   postId: string = '';
 
@@ -69,6 +70,8 @@ export class PostComponent implements OnInit {
         if (this.userData._id === response.author) {
           this.isAuthor = true;
         }
+
+        this.isLoading = false;
       },
       error: (err) => {
         this.router.navigate(['notfound']);

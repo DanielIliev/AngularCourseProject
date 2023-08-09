@@ -1,128 +1,88 @@
 <div class="container post-container">
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title-content">
-        <h3 class="card-title">{{ post.title }}</h3>
-        <small><b>Post made by:</b> {{ post.authorName }}</small>
-      </div>
-      <div class="card-actions" *ngIf="isAuthor">
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="editPost(post._id)"
-        >
-          <i class="bi bi-pencil-fill"></i>
-        </button>
-        <button
-          type="button"
-          class="btn btn-danger"
-          (click)="deletePost(post._id)"
-        >
-          <i class="bi bi-trash3-fill"></i>
-        </button>
-      </div>
-    </div>
-    <div class="card-body">
-      <p>{{ post.content }}</p>
-    </div>
-    <!-- Comments area -->
-    <div class="card-footer">
-      <a
-        href="javascript:void(0)"
-        data-bs-toggle="collapse"
-        data-bs-target="#comments"
-        >View comments</a
-      >
-      <div class="comments-list collapse" id="comments">
-        <div class="comment-form" *ngIf="loggedIn">
-          <form
-            class="form-inline"
-            [formGroup]="commentForm"
-            (ngSubmit)="addComment()"
-          >
-            <div *ngIf="errorMessage" class="alert alert-danger">
-              {{ errorMessage }}
-            </div>
-            <div class="mb-3">
-              <label for="comment" class="form-label">Your comment</label>
-              <textarea
-                type="text"
-                class="form-control"
-                id="comment"
-                formControlName="comment"
-                maxlength="350"
-                placeholder="What I like about this is..."
-              ></textarea>
-              <small
-                class="invalid-comment"
-                *ngIf="comment?.invalid && comment?.touched"
-                >Your comment is invalid</small
-              >
-            </div>
-            <button
-              type="submit"
-              class="btn btn-primary float-end"
-              [disabled]="commentForm.invalid"
-            >
-              Submit
-            </button>
-          </form>
+  <div *ngIf="isLoading">
+    <app-loader></app-loader>
+  </div>
+  <div *ngIf="!isLoading">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-content">
+          <h3 class="card-title">{{ post.title }}</h3>
+          <small><b>Post made by:</b> {{ post.authorName }}</small>
         </div>
-        <div *ngIf="post.comments.length === 0">No comments yet</div>
-        <div *ngIf="post.comments.length !== 0">
-          <div
-            class="alert alert-success"
-            *ngFor="let comment of post.comments | reverse"
+        <div class="card-actions" *ngIf="isAuthor">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="editPost(post._id)"
           >
-            <b>{{ comment.username }} said:</b> {{ comment.comment }}
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deletePost(post._id)"
+          >
+            <i class="bi bi-trash3-fill"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>{{ post.content }}</p>
+      </div>
+      <div class="card-footer">
+        <a
+          href="javascript:void(0)"
+          data-bs-toggle="collapse"
+          data-bs-target="#comments"
+          class="comments-toggle"
+          >Toggle comments</a
+        >
+        <div class="comments-list collapse" id="comments">
+          <div class="comment-form" *ngIf="loggedIn">
+            <form
+              class="form-inline"
+              [formGroup]="commentForm"
+              (ngSubmit)="addComment()"
+            >
+              <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+              <div class="mb-3">
+                <label for="comment" class="form-label">Your comment</label>
+                <textarea
+                  type="text"
+                  class="form-control"
+                  id="comment"
+                  formControlName="comment"
+                  maxlength="350"
+                  placeholder="What I like about this is..."
+                ></textarea>
+                <small
+                  class="invalid-comment"
+                  *ngIf="comment?.invalid && comment?.touched"
+                  >Your comment is invalid</small
+                >
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary float-end"
+                [disabled]="commentForm.invalid"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+          <div *ngIf="post.comments.length === 0">No comments yet</div>
+          <div *ngIf="post.comments.length !== 0">
+            <div
+              class="alert alert-success"
+              *ngFor="let comment of post.comments | reverse"
+            >
+              <b>{{ comment.username }} said:</b> {{ comment.comment }}
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="comments-list">
-    <div *ngIf="post.comments.length === 0">No comments yet</div>
-    <div *ngIf="post.comments.length !== 0">
-      <div class="alert alert-success" *ngFor="let comment of post.comments">
-        <b>{{ comment.username }} said:</b> {{ comment.comment }}
-      </div>
-    </div>
-    <div class="comment-form" *ngIf="loggedIn">
-      <form
-        class="form-inline"
-        [formGroup]="commentForm"
-        (ngSubmit)="addComment()"
-      >
-        <fieldset>
-          <legend>Share your thoughts</legend>
-          <div *ngIf="errorMessage" class="alert alert-danger">
-            {{ errorMessage }}
-          </div>
-          <div class="mb-3">
-            <label for="comment" class="form-label">Your comment</label>
-            <textarea
-              type="text"
-              class="form-control"
-              id="comment"
-              formControlName="comment"
-              maxlength="350"
-              placeholder="What I like about this is..."
-            ></textarea>
-            <small
-              class="invalid-comment"
-              *ngIf="comment?.invalid && comment?.touched"
-              >Your comment is invalid</small
-            >
-          </div>
-          <button
-            type="submit"
-            class="btn btn-primary float-end"
-            [disabled]="commentForm.invalid"
-          >
-            Submit
-          </button>
-        </fieldset>
-      </form>
-    </div>
-  </div> -->
 </div>
