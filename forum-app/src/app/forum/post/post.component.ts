@@ -15,6 +15,7 @@ export class PostComponent implements OnInit {
   loggedIn: boolean = false;
   isAuthor: boolean = false;
   errorMessage: string = '';
+  postId: string = '';
 
   userData: UserData = {
     _id: '',
@@ -46,36 +47,32 @@ export class PostComponent implements OnInit {
     private fb: FormBuilder,
     private localStorageService: LocalStorageService,
     private router: Router
-  ) {
-    const token = this.localStorageService.get('authToken');
-    const userData = this.localStorageService.get('userData');
+  ) {}
 
-    if (token) {
-      this.loggedIn = true;
-    }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(
+      (params: ParamMap) => (this.postId = String(params.get('id')))
+    );
+
+    const userData = this.localStorageService.get('userData');
 
     if (userData) {
       this.userData = JSON.parse(userData);
       this.commentForm.patchValue({ username: this.userData.username });
+      this.loggedIn = true;
     }
-  }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      const postId = String(params.get('id'));
+    this.postService.fetchPost(this.postId).subscribe({
+      next: (response) => {
+        this.post = response;
 
-      this.postService.fetchPost(postId).subscribe({
-        next: (response) => {
-          this.post = response;
-
-          if (this.userData._id === response.author) {
-            this.isAuthor = true;
-          }
-        },
-        error: (err) => {
-          this.router.navigate(['notfound']);
-        },
-      });
+        if (this.userData._id === response.author) {
+          this.isAuthor = true;
+        }
+      },
+      error: (err) => {
+        this.router.navigate(['notfound']);
+      },
     });
   }
 
@@ -104,7 +101,6 @@ export class PostComponent implements OnInit {
   }
 
   editPost(postId: String) {
-    console.log(postId);
     this.router.navigate([`/edit/${postId}`]);
   }
 
