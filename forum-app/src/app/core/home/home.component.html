@@ -9,7 +9,8 @@
         Here you can discuss topics of interest and view other people's thoughts
       </p>
       <div class="landing-page-actions">
-        <button type="button" class="btn btn-success" (click)="goToLogin()">Login</button>
+        <button *ngIf="!isLogged" type="button" class="btn btn-success" (click)="goToLogin()">Login</button>
+        <button *ngIf="isLogged" type="button" class="btn btn-primary" (click)="goToAddPost()">Add post</button>
         <button type="button" class="btn btn-primary" (click)="goToPosts()">View posts</button>
       </div>
     </div>
