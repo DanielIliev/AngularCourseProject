@@ -1,4 +1,17 @@
-<div class="container">
-  <h3>Welcome to the forum application</h3>
-  <p>Here you can view the current topics being discussed.</p>
+<div class="landing-page">
+  <div class="row">
+    <div class="col-lg-7 col-md-12 col-sm-12">
+      <img src="assets/landing-bg.jpg" alt="Forum image" />
+    </div>
+    <div class="col-lg-5 col-md-12 col-sm-12">
+      <h3>Welcome to our forum</h3>
+      <p>
+        Here you can discuss topics of interest and view other people's thoughts
+      </p>
+      <div class="landing-page-actions">
+        <button type="button" class="btn btn-success" (click)="goToLogin()">Login</button>
+        <button type="button" class="btn btn-primary" (click)="goToPosts()">View posts</button>
+      </div>
+    </div>
+  </div>
 </div>
