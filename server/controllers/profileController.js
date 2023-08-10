@@ -1,8 +1,9 @@
 const router = require('express').Router();
+const authorizedUser = require('../middlewares/authorizationMiddleware.js');
 const profileService = require('../services/profileService.js');
 
 // TODO: Add authorizedUser middle
-router.get('/profile/:id', async (req, res) => {
+router.get('/profile/:id', authorizedUser, async (req, res) => {
     try {
         const data = await profileService.getProfilePosts(req.params.id);
 
