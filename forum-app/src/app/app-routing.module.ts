@@ -10,6 +10,7 @@ import { PostComponent } from './forum/post/post.component';
 import { AddComponent } from './forum/add/add.component';
 import { UserGuardService } from './guards/user-guard.service';
 import { EditComponent } from './forum/edit/edit.component';
+import { ProfileComponent } from './profile/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,13 @@ const routes: Routes = [
     component: RegisterComponent,
     canActivate: [GuestGuardService],
     data: { animation: 'registerpage' },
+  },
+  {
+    path: 'profile',
+    title: 'My Profile',
+    component: ProfileComponent,
+    canActivate: [UserGuardService],
+    data: { animation: 'profilepage' },
   },
   {
     path: 'board',

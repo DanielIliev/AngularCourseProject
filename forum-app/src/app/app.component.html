@@ -39,6 +39,11 @@
           </li>
           <!-- User navs -->
           <li class="nav-item" *ngIf="loggedIn">
+            <a class="nav-link" aria-current="page" routerLink="/profile"
+              >My profile</a
+            >
+          </li>
+          <li class="nav-item" *ngIf="loggedIn">
             <a class="nav-link" aria-current="page" routerLink="/add"
               >Add post</a
             >

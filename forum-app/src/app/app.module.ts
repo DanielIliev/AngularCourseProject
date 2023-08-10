@@ -10,6 +10,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ForumModule } from './forum/forum.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { ForumModule } from './forum/forum.module';
     CoreModule,
     AuthModule,
     ForumModule,
+    ProfileModule
   ],
   providers: [LocalStorageService],
   bootstrap: [AppComponent],
