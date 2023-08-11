@@ -59,6 +59,10 @@ exports.register = async (username, email, password) => {
     } catch (error) {
         throw errorHandler(error);
     }
+
+    const token = this.login(username, password);
+
+    return token;
 }
 
 function errorHandler(error) {

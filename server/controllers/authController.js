@@ -8,7 +8,6 @@ router.post('/login', async (req, res) => {
 
     try {
         const token = await authService.login(username, password);
-        await authService.login(username, password);
 
         return res.json(token);
     } catch (error) {
@@ -36,9 +35,10 @@ router.post('/register', registerValidators, async (req, res) => {
     try {
         const { username, email, password} = req.body;
 
-        await authService.register(username, email, password);
+        const token = await authService.register(username, email, password);
 
-        return res.end();
+        return res.json(token);
+
     } catch (error) {
         return res.status(400).json({
             success: false,

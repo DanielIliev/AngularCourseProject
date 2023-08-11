@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterCredentials } from 'src/app/types/Auth';
 import { RegisterService } from './register.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import jwt from 'jwt-decode';
+import { WINDOW } from 'src/app/utils/window.injectable';
 
 @Component({
   selector: 'app-register',
@@ -38,7 +41,9 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private localStorageService: LocalStorageService,
+    @Inject(WINDOW) private window: Window
   ) {}
 
   errorMessage: string = '';
@@ -53,6 +58,13 @@ export class RegisterComponent {
     const credentials: RegisterCredentials = this.registerForm.value;
 
     this.registerService.register(credentials).subscribe({
+      next: (response) => {
+        const token = String(response);
+        const userData = jwt(token);
+        this.localStorageService.set('authToken', token);
+        this.localStorageService.set('userData', JSON.stringify(userData));
+        this.errorMessage = '';
+      },
       error: (err) => {
         if (err.error.errors) {
           this.errorMessage = err.error.errors[0].msg;
@@ -64,8 +76,7 @@ export class RegisterComponent {
         }
       },
       complete: () => {
-        this.errorMessage = '';
-        this.registerForm.reset();
+        this.window.location.reload();
       },
     });
   }
