@@ -3,9 +3,10 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { PostService } from '../post/post.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserData } from 'src/app/types/Auth';
-import { EditForm } from 'src/app/types/Post';
+import { EditForm, Post } from 'src/app/types/Post';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EditService } from './edit.service';
+import { Observer } from 'rxjs';
 
 export interface PostEdit {
   title: string;
@@ -50,6 +51,32 @@ export class EditComponent implements OnInit {
     ],
   });
 
+  fetchPostObs: Observer<Post> = {
+    next: (response) => {
+        this.post = {
+          title: response.title,
+          content: response.content,
+        };
+
+        this.editForm.patchValue({
+          title: this.post.title,
+          content: this.post.content,
+        });
+
+        this.isLoading = false;
+
+        if (this.userData._id !== response.author) {
+          this.router.navigate(['notfound']);
+        }
+      },
+      error: (err) => {
+        this.router.navigate(['notfound']);
+      },
+      complete: () => {
+        console.log('Done');
+      }
+  }
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -75,28 +102,7 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.postService.fetchPost(this.postId).subscribe({
-      next: (response) => {
-        this.post = {
-          title: response.title,
-          content: response.content,
-        };
-
-        this.editForm.patchValue({
-          title: this.post.title,
-          content: this.post.content,
-        });
-
-        this.isLoading = false;
-
-        if (this.userData._id !== response.author) {
-          this.router.navigate(['notfound']);
-        }
-      },
-      error: (err) => {
-        this.router.navigate(['notfound']);
-      },
-    });
+    this.postService.fetchPost(this.postId).subscribe(this.fetchPostObs);
   }
 
   get title() {
