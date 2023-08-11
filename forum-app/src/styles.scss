@@ -1,21 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 #content-wrapper {
-    padding: 16px;
+  padding: 16px;
 }
 
 .form-container {
-    border: 1px solid #eee;
-    padding: 16px;
-    overflow: hidden;
+  border: 1px solid #eee;
+  padding: 16px;
+  overflow: hidden;
 
-    .form-actions {
-        display: flex;
-        justify-content: flex-end;
-        align-items: baseline;
-        gap: 8px;
-    }
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 8px;
+  }
+}
+
+.input-error-message {
+  color: #ff0000;
 }

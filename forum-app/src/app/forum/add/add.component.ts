@@ -35,6 +35,14 @@ export class AddComponent {
     private localStorageService: LocalStorageService
   ) {}
 
+  get title() {
+    return this.addForm.get('title');
+  }
+
+  get content() {
+    return this.addForm.get('content');
+  }
+
   add(event: Event): void {
     event.preventDefault();
 
