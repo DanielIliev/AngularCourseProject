@@ -99,6 +99,14 @@ export class EditComponent implements OnInit {
     });
   }
 
+  get title() {
+    return this.editForm.get('title');
+  }
+
+  get content() {
+    return this.editForm.get('content');
+  }
+
   edit(event: Event) {
     event.preventDefault();
 

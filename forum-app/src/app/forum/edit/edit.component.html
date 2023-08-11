@@ -19,6 +19,11 @@
               formControlName="title"
               maxlength="25"
             />
+            <small
+              class="input-error-message"
+              *ngIf="title?.invalid && title?.touched"
+              >Title must be between 3 and 25 characters long</small
+            >
           </div>
           <div class="mb-3">
             <label for="content" class="form-label">Content</label>
@@ -29,6 +34,11 @@
               formControlName="content"
               maxlength="350"
             ></textarea>
+            <small
+              class="input-error-message"
+              *ngIf="content?.invalid && content?.touched"
+              >Content must be between 10 and 350 characters long</small
+            >
           </div>
           <div class="form-actions">
             <button
