@@ -45,7 +45,12 @@ export class LoginComponent implements OnInit {
         this.errorMessage = '';
       },
       error: (err) => {
-        this.errorMessage = err.error.message;
+        if (err.error.message) {
+          this.errorMessage = err.error.message;
+        } else {
+          this.errorMessage =
+            'We are unable to log you in, please try again later';
+        }
       },
       complete: () => {
         this.window.location.reload();

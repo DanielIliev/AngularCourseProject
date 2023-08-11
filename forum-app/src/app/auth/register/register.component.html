@@ -21,7 +21,7 @@
         <small
           class="input-error-message"
           *ngIf="username?.invalid && username?.touched"
-          >Your username is invalid</small
+          >Your username is invalid (must be between 3 and 25 characters)</small
         >
       </div>
       <div class="mb-3">
@@ -51,7 +51,7 @@
         <small
           class="input-error-message"
           *ngIf="password?.invalid && password?.touched"
-          >Your password is invalid</small
+          >Your password is invalid (must be at least 4 characters long)</small
         >
       </div>
       <div class="mb-3">

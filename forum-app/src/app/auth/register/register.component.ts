@@ -56,10 +56,11 @@ export class RegisterComponent {
       error: (err) => {
         if (err.error.errors) {
           this.errorMessage = err.error.errors[0].msg;
-          return;
-        } else {
+        } else if (err.error.message) {
           this.errorMessage = err.error.message;
-          return;
+        } else {
+          this.errorMessage =
+            'We are unable to register your profile at the moment, please try again later.';
         }
       },
       complete: () => {
