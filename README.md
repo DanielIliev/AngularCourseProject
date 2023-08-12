@@ -29,6 +29,7 @@
         - Create new posts
         - Comment on any post
         - Edit or delete a post (if they are the author)
+        - Access to profile page
 
 ## Tech stack
 ### Client side
