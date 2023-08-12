@@ -20,12 +20,17 @@ export class BoardComponent implements OnInit {
       this.isLoading = false;
     },
     error: (err) => {
-      this.errorMessage = err.message;
+      if (err.status === 0 || err.status === 500) {
+        this.errorMessage = 'We are unable to fetch the posts, please try again later.';
+      } else {
+        this.errorMessage = err.message;
+      }
+      this.isLoading = false;
     },
     complete: () => {
       console.log('Done');
-    }
-  }
+    },
+  };
 
   constructor(private boardService: BoardService, private router: Router) {}
 
