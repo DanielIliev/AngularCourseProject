@@ -13,6 +13,7 @@
       <div *ngFor="let post of posts" class="card">
         <div class="card-body">
           <h5 class="card-title">{{ post.title }}</h5>
+          <hr>
           <p class="card-text">
             {{ post.content | shorten : 50 }}
           </p>
